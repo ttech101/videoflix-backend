@@ -1,0 +1,31 @@
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Countdown Redirect</title>
+    </head>
+
+    <body>
+        <script>
+            function startCountdown() {
+                var countdownTime = 3;
+                function updateCountdown() {
+                    document.getElementById('countdown').innerHTML = countdownTime;
+                    countdownTime--;
+                    if (countdownTime < 0) {
+                        window.location.href = '{{ url }}';
+                    }
+                }
+                setInterval(updateCountdown, 1000);
+            }
+            window.onload = startCountdown;
+        </script>
+        <h1 style="text-align: center">Activation Completed</h1>
+        <h4 style="text-align: center">Your account has been successfully activated.</h4>
+        <p style="text-align: center">You will be redirected to the Videoflix Login in
+            <b><span id="countdown">5</span></b> seconds.
+        </p>
+    </body>
+
+</html>

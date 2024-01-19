@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import UserProfile
+from .models import PasswordResetToken, UserProfile
 
 
 
@@ -9,6 +9,9 @@ class UserProfileAdmin(admin.ModelAdmin):
     search_fields = ('text',)
 
 
-# Register your models here.
+class PasswordResetTokenAdmin(admin.ModelAdmin):
+    list_display = ('user', 'reset_password_token')
+
 
 admin.site.register(UserProfile,UserProfileAdmin)
+admin.site.register(PasswordResetToken, PasswordResetTokenAdmin)
