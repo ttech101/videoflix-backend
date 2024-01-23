@@ -6,6 +6,8 @@ from django.core.mail import EmailMessage
 from django.contrib.sites.shortcuts import get_current_site
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import User
+from rest_framework import status
+import os
 
 
 # Create confirmation email
@@ -26,3 +28,18 @@ def check_token_in_database(token):
         return True  # Token gefunden
     except Token.DoesNotExist:
         return False  # Token nicht gefunden
+
+def handle_uploaded_avatar(user_profile, avatar_file):
+    allowed_extensions = ['.png', '.jpg']
+    max_file_size = 2 * 1024 * 1024  # 2 MB
+    _, file_extension = os.path.splitext(avatar_file.name)
+    if (file_extension.lower() in allowed_extensions) and (avatar_file.size <= max_file_size):
+        if user_profile.avatar:
+            old_avatar_path = user_profile.avatar.path
+            if os.path.exists(old_avatar_path):
+                os.remove(old_avatar_path)
+        user_profile.avatar = avatar_file
+        user_profile.save()
+        return {'message': 'Image uploaded successfully', 'status': status.HTTP_200_OK}
+    else:
+        return {'message': 'Only .png and .jpg files up to 2 MB are allowed', 'status': status.HTTP_400_BAD_REQUEST}

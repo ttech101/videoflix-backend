@@ -5,7 +5,7 @@ from django.dispatch import receiver
 from datetime import datetime
 
 class UserModel(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    username = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=255)
     email = models.CharField(max_length=255, null=True)
 

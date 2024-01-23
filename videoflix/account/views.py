@@ -1,8 +1,9 @@
+import os
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
 from rest_framework.views import APIView
-from rest_framework import viewsets
-from rest_framework import authentication
+from rest_framework import viewsets ,status
+from rest_framework.parsers import FileUploadParser, MultiPartParser
 from .models import UserProfile,UserModel
 from .serializers import UserProfileSerializer, UserModelSerializer
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -14,7 +15,7 @@ from .forms import CustomUserCreationForm
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import  force_str
 from django.contrib.auth.models import User
-from .functions import check_token_in_database, createMailActivateAccount
+from .functions import check_token_in_database, createMailActivateAccount, handle_uploaded_avatar
 from django.utils.http import urlsafe_base64_decode
 from django.shortcuts import render
 from rest_framework.decorators import api_view, permission_classes,authentication_classes
@@ -25,19 +26,15 @@ from django.template.loader import render_to_string
 from django.core.mail import send_mail
 from django.contrib.sites.shortcuts import get_current_site
 from django.shortcuts import render, get_object_or_404
-
-
-
+from django.contrib.auth import get_user_model
 
 
 # Create your views here.
-
 @permission_classes([IsAuthenticated])
 class UserViewSet(viewsets.ModelViewSet):
     queryset = UserProfile.objects.all()
     serializer_class = UserProfileSerializer
     permission_classes = [IsAuthenticated]
-
 
 class LoginView(ObtainAuthToken):
     def post(self, request, *args, **kwargs):
@@ -46,11 +43,16 @@ class LoginView(ObtainAuthToken):
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data['user']
         token, created = Token.objects.get_or_create(user=user)
+        try:
+            user_profile = user.userprofile
+            avatar_path = user_profile.avatar.url if user_profile.avatar else None
+        except UserProfile.DoesNotExist:
+            avatar_path = None
         return Response({
             'token': token.key,
             # 'user_id': user.pk,
             'name' : user.first_name + ' ' + user.last_name,
-            # 'email': user.email,
+            'avatar_path': avatar_path,
         })
 
 @csrf_exempt
@@ -111,21 +113,19 @@ def check_token(request):
 @api_view(['POST',])
 @permission_classes([AllowAny])
 def reset_password(request):
-
     if request.method == 'POST':
         email = request.data.get('email')
-        print(email)
         try:
             user = User.objects.get(email=email)
         except User.DoesNotExist:
-            return JsonResponse({'error': 'This email address does not exist in the system.'})
+            return JsonResponse({'error': 'This email address does not exist in the system.'}, status=400)
         token = get_random_string(length=32)
         password_reset_token, created = PasswordResetToken.objects.get_or_create(user=user)
         password_reset_token.reset_password_token = token
         password_reset_token.save()
         reset_link = f"{settings.FRONTEND_URL}/landing-reset-password?password-reset&token={token}"
         subject = 'Reset password'
-        message = render_to_string('password_reset_email.html', {'user': user,'reset_link': reset_link})
+        message = render_to_string('password_reset_email.html', {'user': user, 'reset_link': reset_link})
         from_email = settings.DEFAULT_FROM_EMAIL
         recipient_list = [email]
         send_mail(subject, message, from_email, recipient_list, html_message=message)
@@ -161,38 +161,81 @@ def delete_current_user(request):
         return JsonResponse({'success': False, 'error': str(e)})
 
 
-# class UserProfileView(View):
-#     authentication_classes = [TokenAuthentication]
-#     permission_classes = []
-#     print('hallo')
-#     def get(self, request, *args, **kwargs):
-#         user_profile = UserProfile.objects.get(user=request.user)
-
-#         data = {
-#             'avatar': user_profile.avatar.url if user_profile.avatar else None,
-#             'automatic_playback': user_profile.automatic_playback,
-#             'language': user_profile.language,
-#             'age_rating': user_profile.age_rating,
-#         }
-
-#         return JsonResponse(data)
-
 class UserProfileView(APIView):
-
-    authentication_classes = [authentication.TokenAuthentication]
+    authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
+    parser_classes = [MultiPartParser]
 
-    def get(self, request, format=None):
-          # Filtere das UserProfile-Objekt des authentifizierten Benutzers
-          user_profile = UserProfile.objects.filter(user=request.user).first()
-          user = UserModel.objects.filter(user=request.user).first()
-          # Überprüfe, ob das UserProfile-Objekt existiert
-          if user_profile:
-              serializer = UserProfileSerializer(user_profile)
-              serializer_user = UserModelSerializer(user)
-              print(serializer_user.data)
+    print('hallo')
+    def get(self, request, *args, **kwargs):
+        user_profile = UserProfile.objects.get(user=request.user)
+        user = request.user
+        data = {
+            'avatar': user_profile.avatar.url if user_profile.avatar else None,
+            'automatic_playback': user_profile.automatic_playback,
+            'language': user_profile.language,
+            'age_rating': user_profile.age_rating,
+            'name': user.first_name,
+        }
+        return JsonResponse(data)
+    def put(self, request, *args, **kwargs):
+        user_profile = UserProfile.objects.get(user=request.user)
+        user = request.user
+        user_profile.automatic_playback = request.data.get('automatic_playback', user_profile.automatic_playback)
+        user_profile.language = request.data.get('language', user_profile.language)
+        user_profile.age_rating = request.data.get('age_rating', user_profile.age_rating)
+        user_profile.save()
+        user.first_name = request.data.get('name', user.first_name)
+        user.save()
+        return Response(status=status.HTTP_200_OK)
 
-              return Response(serializer.data)
-          else:
-              # Benutzer hat kein UserProfile
-              return Response({'detail': 'UserProfile not found for this user.'})
+    def post(self, request, *args, **kwargs):
+        user_profile = UserProfile.objects.get(user=request.user)
+        avatar_file = request.FILES.get('avatar')
+
+        if avatar_file:
+            response = handle_uploaded_avatar(user_profile, avatar_file)
+            return Response(response, status=response['status'])
+        else:
+            return Response({'message': 'No file found in the request'}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET', 'PUT'])
+@authentication_classes([TokenAuthentication])
+def change_email_and_username(request):
+    user = request.user
+    if request.method == 'GET':
+        return Response({'email': user.email})
+    new_email = request.data.get('new_email')
+    new_username = request.data.get('new_username')
+    if not new_email or not new_username:
+        return Response({'error': 'Both new_email and new_username are required.'}, status=400)
+    if get_user_model().objects.filter(email=new_email).exclude(pk=user.pk).exists():
+        return Response({'error': 'Email already exists.'}, status=400)
+    if get_user_model().objects.filter(username=new_username).exclude(pk=user.pk).exists():
+        return Response({'error': 'Username already exists.'}, status=400)
+    user.email = new_email
+    user.username = new_username
+    user.save()
+    return Response({'success': 'Email changed successfully.'})
+
+@api_view(['PUT'])
+@authentication_classes([TokenAuthentication])
+def change_password_acc(request):
+    user = request.user
+
+    # Überprüfe, ob die erforderlichen Daten in der Anfrage vorhanden sind
+    current_password = request.data.get('current_password')
+    new_password = request.data.get('new_password')
+
+    if not current_password or not new_password:
+        return Response({'error': 'Both current_password and new_password are required.'}, status=400)
+
+    # Überprüfe, ob das aktuelle Passwort korrekt ist
+    if not user.check_password(current_password):
+        return Response({'error': 'Current password is incorrect.'}, status=400)
+
+    # Setze das neue Passwort
+    user.set_password(new_password)
+    user.save()
+
+    return Response({'success': 'Password changed successfully.'})
