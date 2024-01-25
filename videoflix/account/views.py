@@ -222,19 +222,12 @@ def change_email_and_username(request):
 @authentication_classes([TokenAuthentication])
 def change_password_acc(request):
     user = request.user
-
-    # Überprüfe, ob die erforderlichen Daten in der Anfrage vorhanden sind
     current_password = request.data.get('current_password')
     new_password = request.data.get('new_password')
-
     if not current_password or not new_password:
         return Response({'error': 'Both current_password and new_password are required.'}, status=400)
-
-    # Überprüfe, ob das aktuelle Passwort korrekt ist
     if not user.check_password(current_password):
         return Response({'error': 'Current password is incorrect.'}, status=400)
-
-    # Setze das neue Passwort
     user.set_password(new_password)
     user.save()
 

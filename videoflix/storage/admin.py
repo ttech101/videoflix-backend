@@ -6,7 +6,7 @@ from .models import uploadMovie
 
 class UploadMovieAdmin(admin.ModelAdmin):
     # fields = ('text','created_at', 'author', 'receiver')
-    list_display = ('id','user','last_play', 'created_at','movie_name','author')
+    list_display = ('id','user','last_play', 'created_at','movie_name','author','random_key')
     search_fields = ('text',)
 
 

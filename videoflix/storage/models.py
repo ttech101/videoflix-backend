@@ -1,11 +1,13 @@
+import uuid
 from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import User
 from django.db import models
+from django.utils.crypto import get_random_string
 
 # Create your models here.
 class uploadMovie(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='uploadMovie')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateField(default=datetime.today)
     last_play = models.DateTimeField(null=True, blank=True)
     movie_name = models.CharField(max_length=255,null=True, blank=True)
@@ -14,6 +16,7 @@ class uploadMovie(models.Model):
     author = models.CharField(max_length=100,null=True, blank=True)
     date_from = models.DateField()
     video_length= models.CharField(max_length=20,null=True, blank=True)
+    genre = models.CharField(max_length=100,null=True, blank=True)
     movie_check = models.BooleanField(default=False)
     short_movie_check = models.BooleanField(default=False)
     nature_check = models.BooleanField(default=False)
@@ -22,5 +25,28 @@ class uploadMovie(models.Model):
     other_check = models.BooleanField(default=False)
     age_rating = models.PositiveIntegerField(default=0)
     upload_visible_check = models.BooleanField(default=False)
+    cover = models.ImageField(upload_to='cover/', null=True, blank=True)
+    big_picture = models.ImageField(upload_to='big_picture/', null=True, blank=True)
+    video = models.FileField(upload_to='video/', null=True, blank=True)
+    random_key  = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
 
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.random_key = uuid.uuid4()
+        super().save(*args, **kwargs)
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.random_key = uuid.uuid4()
+        if self.nature_check:
+            self.genre = 'Nature'
+        elif self.funny_check:
+            self.genre = 'Funny'
+        elif self.knowledge_check:
+            self.genre = 'Knowledge'
+        elif self.other_check:
+            self.genre = 'Other'
+
+        super().save(*args, **kwargs)
 

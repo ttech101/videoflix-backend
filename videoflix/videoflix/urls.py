@@ -5,9 +5,12 @@ from django.urls import include, path
 from rest_framework import routers
 from account.views import LoginView, UserProfileView, UserViewSet, activate, change_email_and_username, change_password, change_password_acc, check_token, delete_current_user,register, reset_password
 from django.conf.urls.static import static
+from storage.views import MovieView, PreviewSerializer
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
+router.register(r'preview', PreviewSerializer)
+router.register(r'movies', MovieView)
 
 urlpatterns = [
     path('', include(router.urls)),
