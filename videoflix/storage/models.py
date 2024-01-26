@@ -1,8 +1,10 @@
+import os
 import uuid
 from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import User
 from django.db import models
+from django.dispatch import receiver
 from django.utils.crypto import get_random_string
 
 # Create your models here.
@@ -14,7 +16,7 @@ class uploadMovie(models.Model):
     description_short = models.CharField(max_length=250,null=True, blank=True)
     description = models.CharField(max_length=1000,null=True, blank=True)
     author = models.CharField(max_length=100,null=True, blank=True)
-    date_from = models.DateField()
+    date_from = models.DateField(null=True)
     video_length= models.CharField(max_length=20,null=True, blank=True)
     genre = models.CharField(max_length=100,null=True, blank=True)
     movie_check = models.BooleanField(default=False)

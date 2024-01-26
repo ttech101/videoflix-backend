@@ -17,6 +17,7 @@ class UserProfile(models.Model):
     automatic_playback = models.BooleanField(default=False)
     language = models.CharField(max_length=50, default='English')
     age_rating = models.PositiveIntegerField(default=0)
+    watchlist = models.JSONField(blank=True, null=True)
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

@@ -165,8 +165,6 @@ class UserProfileView(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
     parser_classes = [MultiPartParser]
-
-    print('hallo')
     def get(self, request, *args, **kwargs):
         user_profile = UserProfile.objects.get(user=request.user)
         user = request.user
