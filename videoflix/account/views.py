@@ -4,6 +4,9 @@ from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
 from rest_framework.views import APIView
 from rest_framework import viewsets ,status
 from rest_framework.parsers import FileUploadParser, MultiPartParser
+
+from storage.models import uploadMovie
+from storage.serializers import PreviewSerializer
 from .models import UserProfile,UserModel
 from .serializers import UserProfileSerializer, UserModelSerializer
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -230,3 +233,61 @@ def change_password_acc(request):
     user.save()
 
     return Response({'success': 'Password changed successfully.'})
+
+
+class Watchlist(APIView):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
+    def post(self, request, *args, **kwargs):
+        key_to_add = request.data.get('key', None)
+        if key_to_add:
+            try:
+                user_profile = UserProfile.objects.get(user=request.user)
+            except UserProfile.DoesNotExist:
+                return Response({'error': 'UserProfile not found'}, status=status.HTTP_404_NOT_FOUND)
+            watchlist = user_profile.watchlist or []
+            if key_to_add not in watchlist:
+                watchlist.append(key_to_add)
+                user_profile.watchlist = watchlist
+                user_profile.save()
+                return Response({'success': 'Key added to watchlist'}, status=status.HTTP_200_OK)
+            else:
+                return Response({'error': 'Key already exists in watchlist'}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({'error': 'Key not provided in the POST data'}, status=status.HTTP_400_BAD_REQUEST)
+
+    def get(self, request, *args, **kwargs):
+        try:
+            user_profile = UserProfile.objects.get(user=request.user)
+        except UserProfile.DoesNotExist:
+            return Response({'error': 'UserProfile not found'}, status=status.HTTP_404_NOT_FOUND)
+        watchlist = user_profile.watchlist or []
+        preview_data = []
+        for key in watchlist:
+            try:
+                movie_instance = uploadMovie.objects.get(random_key=key)
+                serializer = PreviewSerializer(movie_instance, context={'request': request})
+                preview_data.append(serializer.data)
+            except uploadMovie.DoesNotExist:
+                # Handhaben Sie den Fall, wenn das Movie-Objekt nicht gefunden wurde
+                pass
+        return Response(preview_data, status=status.HTTP_200_OK)
+
+    def delete(self, request, *args, **kwargs):
+        key_to_delete = request.data.get('key', None)
+        print(key_to_delete)
+        if key_to_delete:
+            try:
+                user_profile = UserProfile.objects.get(user=request.user)
+            except UserProfile.DoesNotExist:
+                return Response({'error': 'UserProfile not found'}, status=status.HTTP_404_NOT_FOUND)
+            watchlist = user_profile.watchlist or []
+            if key_to_delete in watchlist:
+                watchlist.remove(key_to_delete)
+                user_profile.watchlist = watchlist
+                user_profile.save()
+                return Response({'success': 'Key removed from watchlist'}, status=status.HTTP_200_OK)
+            else:
+                return Response({'error': 'Key not found in watchlist'}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({'error': 'Key not provided in the DELETE data'}, status=status.HTTP_400_BAD_REQUEST)

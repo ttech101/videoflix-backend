@@ -3,14 +3,15 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path
 from rest_framework import routers
-from account.views import LoginView, UserProfileView, UserViewSet, activate, change_email_and_username, change_password, change_password_acc, check_token, delete_current_user,register, reset_password
+from account.views import LoginView, Watchlist, UserProfileView, UserViewSet, activate, change_email_and_username, change_password, change_password_acc, check_token, delete_current_user,register, reset_password
 from django.conf.urls.static import static
-from storage.views import MovieView, PreviewSerializer, CreateMovie, UploadMovie
+from storage.views import CheckWatchlist, DeleteMovie, MovieView, PreviewSerializer, CreateMovie, UploadMovie
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'preview', PreviewSerializer)
 router.register(r'movies', MovieView)
+router.register(r'checkwachlist', CheckWatchlist)
 
 urlpatterns = [
     path('', include(router.urls)),
@@ -27,7 +28,10 @@ urlpatterns = [
     path('change_password_acc/', change_password_acc, name='change_password_acc'),
     path('create_movie/', CreateMovie.as_view(), name='create_movie'),
     path('upload_movie/', UploadMovie.as_view(), name='upload_movie'),
-
+    path('watchlist/', Watchlist.as_view(), name='update-watchlist'),
+    path('delete_movie/', DeleteMovie.as_view(), name='delete_movie'),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 
 urlpatterns += router.urls
+
+

@@ -2,16 +2,16 @@ import json
 import uuid
 from django.http import HttpResponseBadRequest, JsonResponse
 from django.shortcuts import render
-
 from storage.models import uploadMovie
 from storage.serializers import MovieSerializer,PreviewSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.response import Response
 from rest_framework import viewsets ,status
-from rest_framework.decorators import permission_classes,authentication_classes
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.views import APIView
+
+from rest_framework.decorators import permission_classes
 
 
 @permission_classes([IsAuthenticated])
@@ -20,12 +20,24 @@ class MovieView(viewsets.ModelViewSet):
     serializer_class = MovieSerializer
     permission_classes = [IsAuthenticated]
     authentication_classes = [TokenAuthentication]
-
     def get_queryset(self):
         select = self.request.query_params.get('select', None)
         return uploadMovie.objects.filter(random_key=select)
 
-
+@permission_classes([IsAuthenticated])
+class CheckWatchlist(viewsets.ModelViewSet):
+    queryset = uploadMovie.objects.filter(upload_visible_check=True)
+    serializer_class = MovieSerializer
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
+    def list(self, request, *args, **kwargs):
+        select = request.query_params.get('select', None)
+        user_profile = request.user.userprofile
+        watchlist = user_profile.watchlist if user_profile.watchlist else []
+        if select in watchlist:
+            return Response(True, status=status.HTTP_200_OK)
+        else:
+            return Response(False, status=status.HTTP_200_OK)
 
 
 @permission_classes([IsAuthenticated])
@@ -56,7 +68,6 @@ class PreviewSerializer(viewsets.ModelViewSet):
             return uploadMovie.objects.filter(user=self.request.user)
         if select == 'all':
             return uploadMovie.objects.filter(upload_visible_check=True)
-
 
 
 class CreateMovie(APIView):
@@ -125,3 +136,20 @@ class UploadMovie(APIView):
             return Response({"status":"success"}, status=status.HTTP_200_OK)
         except Exception as e:
             return HttpResponseBadRequest(str(e))
+
+class DeleteMovie(APIView):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
+    def delete(self, request, *args, **kwargs):
+        try:
+            random_key = request.data.get('random_key')
+            if not random_key:
+                return JsonResponse({'error': 'Missing "random_key" in the request data'}, status=status.HTTP_400_BAD_REQUEST)
+            try:
+                movie = uploadMovie.objects.get(random_key=random_key)
+            except uploadMovie.DoesNotExist:
+                return JsonResponse({'error': 'No movie found with the provided "random_key"'}, status=status.HTTP_404_NOT_FOUND)
+            movie.delete()
+            return JsonResponse({'success': 'Movie successfully deleted'}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
