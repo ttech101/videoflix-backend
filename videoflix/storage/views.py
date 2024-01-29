@@ -73,6 +73,7 @@ class PreviewSerializer(viewsets.ModelViewSet):
 class CreateMovie(APIView):
     permission_classes = [IsAuthenticated]
     authentication_classes = [TokenAuthentication]
+
     def get(self, request, *args, **kwargs):
         # Hier wird ein neues uploadMovie-Objekt erstellt
         movie = uploadMovie.objects.create(user=request.user)
@@ -87,26 +88,42 @@ class CreateMovie(APIView):
             if not random_key:
                 return JsonResponse({'error': 'Missing "random_key" in the request data'}, status=400)
             movie = uploadMovie.objects.get(random_key=random_key)
-            movie.author = request.data.get('author', '')
-            movie.description = request.data.get('description', '')
-            movie.description_short = request.data.get('description_short', '')
-            movie.genre = request.data.get('genre', '')
-            movie.movie_check = request.data.get('movie_check', False)
-            movie.short_movie_check = request.data.get('short_movie_check', False)
-            movie.nature_check = request.data.get('nature_check', False)
-            movie.funny_check = request.data.get('funny_check', False)
-            movie.knowledge_check = request.data.get('knowledge_check', False)
-            movie.other_check = request.data.get('other_check', False)
-            movie.movie_name = request.data.get('movie_name', '')
-            movie.age_rating = request.data.get('selectedAge', 0)
-            movie.upload_visible_check = request.data.get('upload_visible_check', False)
-            movie.video_length = request.data.get('video_length', '')
-            movie.save()
+            self.update_movie_from_request_data(movie, request.data)
             return JsonResponse({'success': 'Movie details successfully updated'})
         except uploadMovie.DoesNotExist:
             return JsonResponse({'error': 'Invalid "random_key"'}, status=400)
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)
+
+    def put(self, request, *args, **kwargs):
+        try:
+            random_key = request.data.get('upload_key')
+            if not random_key:
+                return JsonResponse({'error': 'Missing "random_key" in the request data'}, status=400)
+            movie = uploadMovie.objects.get(random_key=random_key)
+            self.update_movie_from_request_data(movie, request.data)
+            return JsonResponse({'success': 'Movie details successfully updated'})
+        except uploadMovie.DoesNotExist:
+            return JsonResponse({'error': 'Invalid "random_key"'}, status=400)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+
+    def update_movie_from_request_data(self, movie, data):
+        movie.author = data.get('author', '')
+        movie.description = data.get('description', '')
+        movie.description_short = data.get('description_short', '')
+        movie.genre = data.get('genre', '')
+        movie.movie_check = data.get('movie_check', False)
+        movie.short_movie_check = data.get('short_movie_check', False)
+        movie.nature_check = data.get('nature_check', False)
+        movie.funny_check = data.get('funny_check', False)
+        movie.knowledge_check = data.get('knowledge_check', False)
+        movie.other_check = data.get('other_check', False)
+        movie.movie_name = data.get('movie_name', '')
+        movie.age_rating = data.get('selectedAge', 0)
+        movie.upload_visible_check = data.get('upload_visible_check', False)
+        movie.video_length = data.get('video_length', '')
+        movie.save()
 
 
 class UploadMovie(APIView):

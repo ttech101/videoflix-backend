@@ -11,7 +11,7 @@ class PreviewSerializer(serializers.HyperlinkedModelSerializer):
 class MovieSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = uploadMovie
-        fields = ['movie_name','description_short','description','author','date_from','genre','video_length','age_rating','big_picture','video']
+        fields = ['movie_name','description_short','description','author','date_from','genre','video_length','age_rating','big_picture','video','movie_check','short_movie_check','upload_visible_check']
 
 
 
