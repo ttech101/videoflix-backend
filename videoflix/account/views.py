@@ -56,6 +56,8 @@ class LoginView(ObtainAuthToken):
             # 'user_id': user.pk,
             'name' : user.first_name + ' ' + user.last_name,
             'avatar_path': avatar_path,
+            'autoplay': user_profile.automatic_playback,
+            'language': user_profile.language
         })
 
 @csrf_exempt

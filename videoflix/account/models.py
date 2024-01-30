@@ -15,7 +15,7 @@ class UserProfile(models.Model):
     last_logged_in = models.DateTimeField(null=True, blank=True)
     avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
     automatic_playback = models.BooleanField(default=False)
-    language = models.CharField(max_length=50, default='English')
+    language = models.CharField(max_length=50, default='en')
     age_rating = models.PositiveIntegerField(default=0)
     watchlist = models.JSONField(blank=True, null=True)
 
