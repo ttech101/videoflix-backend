@@ -211,7 +211,7 @@ def change_email_and_username(request):
     new_email = request.data.get('new_email')
     new_username = request.data.get('new_username')
     if not new_email or not new_username:
-        return Response({'error': 'Both new_email and new_username are required.'}, status=400)
+        return Response({'error': 'Both new email and new username are required.'}, status=400)
     if get_user_model().objects.filter(email=new_email).exclude(pk=user.pk).exists():
         return Response({'error': 'Email already exists.'}, status=400)
     if get_user_model().objects.filter(username=new_username).exclude(pk=user.pk).exists():
