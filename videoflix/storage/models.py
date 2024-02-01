@@ -38,17 +38,17 @@ class uploadMovie(models.Model):
             self.random_key = uuid.uuid4()
         super().save(*args, **kwargs)
 
-    def save(self, *args, **kwargs):
-        if not self.pk:
-            self.random_key = uuid.uuid4()
-        if self.nature_check:
-            self.genre = 'Nature'
-        elif self.funny_check:
-            self.genre = 'Funny'
-        elif self.knowledge_check:
-            self.genre = 'Knowledge'
-        elif self.other_check:
-            self.genre = 'Other'
-
-        super().save(*args, **kwargs)
+#    def save(self, *args, **kwargs):
+#        if not self.pk:
+#            self.random_key = uuid.uuid4()
+#        if self.nature_check:
+#            self.genre = 'Nature'
+#        elif self.funny_check:
+#            self.genre = 'Funny'
+#        elif self.knowledge_check:
+#            self.genre = 'Knowledge'
+#        elif self.other_check:
+#            self.genre = 'Other'
+#
+#        super().save(*args, **kwargs)
 
