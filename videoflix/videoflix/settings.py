@@ -27,9 +27,11 @@ SECRET_KEY = 'django-insecure-(snwa47!t1=ak__*^%=ue&e%(2bp$kpd5mh8_%a83jz@trwgc-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
-CORS_ALLOW_ALL_ORIGINS = True
+ALLOWED_HOSTS = ['videoflix-backend.tech-mail.eu','109.90.14.44']
+CORS_ALLOWED_ORIGINS = ["https://videoflix.tech-mail.eu","https://videoflix-backend.tech-mail.eu"]
 
+CORS_ORIGIN_ALLOW_ALL = True
+#CORS_ALLOW_CREDENTIALS = True
 
 # Application definition
 
@@ -44,6 +46,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'account',
     'storage.apps.StorageConfig',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -135,6 +138,11 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
+	'DEFAULT_PARSER_CLASSES': [
+        'rest_framework.parsers.JSONParser',
+        'rest_framework.parsers.FormParser',
+        'rest_framework.parsers.MultiPartParser',
+    ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
@@ -154,3 +162,14 @@ EMAIL_HOST_USER = 'ttechnomeister@gmail.com'
 EMAIL_HOST_PASSWORD = 'edmsbzmeaelkpphh'
 
 FRONTEND_URL = 'http://localhost:4200'
+
+
+IMAGE_MAX_SIZE = 5 * 1024 * 1024  # 5 MB 
+VIDEO_MAX_SIZE = 50 * 1024 * 1024  # 50 MB 
+DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760  # 10 
+FILE_UPLOAD_MAX_MEMORY_SIZE = 10485760  # 10 
+
+FILE_UPLOAD_MAX_SIZE = {
+    'image': IMAGE_MAX_SIZE,
+    'video': VIDEO_MAX_SIZE,
+}
