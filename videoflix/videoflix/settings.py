@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-(snwa47!t1=ak__*^%=ue&e%(2bp$kpd5mh8_%a83jz@trwgc-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['videoflix-backend.tech-mail.eu','109.90.14.44']
+ALLOWED_HOSTS = ['127.0.0.1','videoflix-backend.tech-mail.eu','109.90.14.44']
 CORS_ALLOWED_ORIGINS = ["https://videoflix.tech-mail.eu","https://videoflix-backend.tech-mail.eu"]
 
 CORS_ORIGIN_ALLOW_ALL = True
@@ -47,9 +47,12 @@ INSTALLED_APPS = [
     'account',
     'storage.apps.StorageConfig',
     'corsheaders',
+    "debug_toolbar",
+    "django_rq",
 ]
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -58,8 +61,26 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
 ]
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+             "REDIS_CLIENT_KWARGS": {
+                "ssl_cert_reqs": None,
+                "ssl": True,
+                },
+            "CLIENT_CLASS": "django_redis.client.DefaultClient"
+            },
+        "KEY_PREFIX": "videoflix"
+        }
+    }
 
 ROOT_URLCONF = 'videoflix.urls'
 
@@ -164,12 +185,27 @@ EMAIL_HOST_PASSWORD = 'edmsbzmeaelkpphh'
 FRONTEND_URL = 'http://localhost:4200'
 
 
-IMAGE_MAX_SIZE = 5 * 1024 * 1024  # 5 MB 
-VIDEO_MAX_SIZE = 50 * 1024 * 1024  # 50 MB 
-DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760  # 10 
-FILE_UPLOAD_MAX_MEMORY_SIZE = 10485760  # 10 
+IMAGE_MAX_SIZE = 5 * 1024 * 1024  # 5 MB
+VIDEO_MAX_SIZE = 50 * 1024 * 1024  # 50 MB
+DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760  # 10
+FILE_UPLOAD_MAX_MEMORY_SIZE = 10485760  # 10
 
 FILE_UPLOAD_MAX_SIZE = {
     'image': IMAGE_MAX_SIZE,
     'video': VIDEO_MAX_SIZE,
+}
+
+
+RQ_QUEUES = {
+    'default': {
+        'HOST': 'localhost',
+        'PORT': 6379,
+        'DB': 0,
+        # 'USERNAME': 'some-user',
+        'PASSWORD': 'foobared',
+        'DEFAULT_TIMEOUT': 360,
+        'REDIS_CLIENT_KWARGS': {
+            'ssl_cert_reqs': None,
+        },
+    }
 }
