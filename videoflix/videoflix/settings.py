@@ -27,13 +27,10 @@ SECRET_KEY = 'django-insecure-(snwa47!t1=ak__*^%=ue&e%(2bp$kpd5mh8_%a83jz@trwgc-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-<<<<<<< HEAD
-ALLOWED_HOSTS = ['videoflix-backend.tech-mail.eu','109.90.14.44']
-CORS_ALLOWED_ORIGINS = ["http://localhost:4200","https://videoflix.tech-mail.eu","https://videoflix-backend.tech-mail.eu"]
-=======
+
 ALLOWED_HOSTS = ['127.0.0.1','videoflix-backend.tech-mail.eu','109.90.14.44']
 CORS_ALLOWED_ORIGINS = ["https://videoflix.tech-mail.eu","https://videoflix-backend.tech-mail.eu"]
->>>>>>> 2064afb4afd10b76f1f329188f2b5c013b6166b7
+
 
 CORS_ORIGIN_ALLOW_ALL = True
 #CORS_ALLOW_CREDENTIALS = True
@@ -207,10 +204,8 @@ RQ_QUEUES = {
         'PORT': 6379,
         'DB': 0,
         # 'USERNAME': 'some-user',
-        'PASSWORD': 'foobared',
+#        'PASSWORD': 'foobared',
         'DEFAULT_TIMEOUT': 360,
-        'REDIS_CLIENT_KWARGS': {
-            'ssl_cert_reqs': None,
-        },
     }
 }
+
