@@ -1,8 +1,14 @@
 import os
 import subprocess
+import django_rq
+
 
 
 def convert(source,instance):
+    queue = django_rq.get_queue('default', autocommit=True)
+    queue.enqueue(convert_video, source,instance)
+
+def convert_video(source,instance):
     print('video wwird nun umgewandelt')
     source_name = os.path.splitext(source)[0]
     target = source_name + '_480p.mp4'
@@ -12,3 +18,4 @@ def convert(source,instance):
     instance.video.name = 'video/' + os.path.basename(source_name + '_480p.mp4')
     instance.save()
     os.remove(source)
+
