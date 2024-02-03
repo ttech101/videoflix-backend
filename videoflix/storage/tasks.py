@@ -13,7 +13,7 @@ def convert_video(source,instance):
     source_name = os.path.splitext(source)[0]
     print('source geandert ->',source_name)
     target = source_name + '_480p.mp4'
-    print('bin ich auch noch hier???')
+    print('bin ich auch noch hier??? ->>',source)
     cmd = 'ffmpeg -i "{}" -s hd720 -c:v libx264 -crf 23 -c:a aac -strict -2 "{}"'.format(source, target)
     print('check vor cmd befehl ->',cmd)
     subprocess.run(cmd)
