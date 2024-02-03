@@ -38,6 +38,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 # Application definition
 
 INSTALLED_APPS = [
+    "django_rq",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -50,7 +51,7 @@ INSTALLED_APPS = [
     'storage.apps.StorageConfig',
     'corsheaders',
     "debug_toolbar",
-    "django_rq",
+
 ]
 
 MIDDLEWARE = [
