@@ -1,24 +1,14 @@
 import os
 import subprocess
 import django_rq
+from storage.models import uploadMovie
 
-
-
-def convert(source,instance):
-    queue = django_rq.get_queue('default', autocommit=True)
-    queue.enqueue(convert_video, source,instance)
-
-def convert_video(source,instance):
-    print('video wird nun umgewandelt')
-    source_name = os.path.splitext(source)[0]
-    print('source geandert ->',source_name)
-    target = source_name + '_480p.mp4'
-    print('bin ich auch noch hier??? ->>',source)
-    cmd = 'ffmpeg -i "{}" -s hd720 -c:v libx264 -crf 23 -c:a aac -strict -2 "{}"'.format(source, target)
-    print('check vor cmd befehl ->',cmd)
+def convert_480p(instance):
+    source_name = os.path.splitext(instance.video.path)[0]
+    video_name = os.path.splitext(instance.video.name)[0]
+    target = source_name + '96647835AA3E5537424ABDB439F6E_480p.mp4'
+    cmd = 'ffmpeg -i "{}" -s hd720 -c:v libx264 -crf 23 -c:a aac -strict -2 "{}"'.format(instance.video.path, target)
     subprocess.run(cmd)
-    print('umwandel ist abgeschlossen')
-    instance.video.name = 'video/' + os.path.basename(source_name + '_480p.mp4')
+    os.remove(instance.video.path)
+    instance.video.name = video_name + '96647835AA3E5537424ABDB439F6E_480p.mp4'
     instance.save()
-    os.remove(source)
-
