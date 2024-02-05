@@ -40,7 +40,7 @@ urlpatterns = [
     path('delete_movie/', DeleteMovie.as_view(), name='delete_movie'),
     path("__debug__/", include("debug_toolbar.urls")),
     path('django-rq/', include('django_rq.urls')),
-    path('media/<path:path>', user_passes_test(is_authenticated_user)(serve), {'document_root': settings.MEDIA_ROOT}, name='protected_media'),
+    path('media/<path:path>', user_passes_test(is_authenticated_user, login_url=settings.LOGIN_URL)(serve), {'document_root': settings.MEDIA_ROOT}, name='protected_media'),
 ] + staticfiles_urlpatterns() + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 
 urlpatterns += router.urls
