@@ -189,6 +189,10 @@ EMAIL_HOST_PASSWORD = 'edmsbzmeaelkpphh'
 FRONTEND_URL = 'https://videoflix.tech-mail.eu'
 LOGIN_URL = 'https://videoflix.tech-mail.eu/login/'
 
+CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_SAMESITE = None
+SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_SAMESITE = None
 
 IMAGE_MAX_SIZE = 5 * 1024 * 1024  # 5 MB
 VIDEO_MAX_SIZE = 50 * 1024 * 1024  # 50 MB
