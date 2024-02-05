@@ -65,6 +65,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'videoflix.middleware.MediaAccessMiddleware',
 ]
 
 INTERNAL_IPS = [
@@ -119,6 +120,7 @@ DATABASES = {
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+MEDIA_ROOT_AUTHENTICATION = True
 
 
 # Password validation
@@ -189,10 +191,6 @@ EMAIL_HOST_PASSWORD = 'edmsbzmeaelkpphh'
 FRONTEND_URL = 'https://videoflix.tech-mail.eu'
 LOGIN_URL = 'https://videoflix.tech-mail.eu/login/'
 
-CSRF_COOKIE_SECURE = True
-CSRF_COOKIE_SAMESITE = None
-SESSION_COOKIE_SECURE = True
-SESSION_COOKIE_SAMESITE = None
 
 IMAGE_MAX_SIZE = 5 * 1024 * 1024  # 5 MB
 VIDEO_MAX_SIZE = 50 * 1024 * 1024  # 50 MB
