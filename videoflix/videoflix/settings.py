@@ -65,7 +65,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'videoflix.middleware.MediaAccessMiddleware',
 ]
 
 INTERNAL_IPS = [
@@ -120,7 +119,7 @@ DATABASES = {
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-MEDIA_ROOT_AUTHENTICATION = True
+#MEDIA_ROOT_AUTHENTICATION = True
 
 
 # Password validation
