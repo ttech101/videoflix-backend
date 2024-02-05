@@ -11,9 +11,6 @@ from django.contrib.auth.decorators import login_required
 from django.views.static import serve
 from django.shortcuts import redirect
 
-def redirect_to_frontend(request):
-    return redirect('https://videoflix.tech-mail.eu/')
-
 router = routers.DefaultRouter()
 # router.register(r'users', UserViewSet)
 router.register(r'preview', PreviewSerializer)
@@ -40,8 +37,8 @@ urlpatterns = [
     path("__debug__/", include("debug_toolbar.urls")),
     path('django-rq/', include('django_rq.urls')),
     path('media/<path:path>', login_required(serve, login_url='https://videoflix.tech-mail.eu/'), {'document_root': settings.MEDIA_ROOT}),
-] + staticfiles_urlpatterns() + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+] + staticfiles_urlpatterns()
+
+# + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 
 urlpatterns += router.urls
-
-
