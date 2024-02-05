@@ -59,6 +59,17 @@ class LoginView(ObtainAuthToken):
             'autoplay': user_profile.automatic_playback,
             'language': user_profile.language
         })
+    def get(self, request, *args, **kwargs):
+        # Überprüfen, ob der Benutzer angemeldet ist
+        if request.user.is_authenticated:
+            return Response({'user_exists': True})
+        # Wenn der Benutzer nicht authentifiziert ist, überprüfen Sie die E-Mail-Adresse
+        email = request.query_params.get('email', None)
+        if email:
+            user_exists = User.objects.filter(email=email).exists()
+            return Response({'user_exists': user_exists})
+        else:
+            return Response({'detail': 'Email parameter missing'}, status=status.HTTP_400_BAD_REQUEST)
 
 @csrf_exempt
 def register(request):

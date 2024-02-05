@@ -7,10 +7,15 @@ from account.views import LoginView, Watchlist, UserProfileView, UserViewSet, ac
 from django.conf.urls.static import static
 from storage.views import CheckWatchlist, DeleteMovie, MovieView, PreviewSerializer, CreateMovie, UploadMovie
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.contrib.auth.decorators import login_required
+from django.views.static import serve
+from django.shortcuts import redirect
 
+def redirect_to_frontend(request):
+    return redirect('https://videoflix.tech-mail.eu/')
 
 router = routers.DefaultRouter()
-router.register(r'users', UserViewSet)
+# router.register(r'users', UserViewSet)
 router.register(r'preview', PreviewSerializer)
 router.register(r'movies', MovieView)
 router.register(r'checkwachlist', CheckWatchlist)
@@ -33,7 +38,8 @@ urlpatterns = [
     path('watchlist/', Watchlist.as_view(), name='update-watchlist'),
     path('delete_movie/', DeleteMovie.as_view(), name='delete_movie'),
     path("__debug__/", include("debug_toolbar.urls")),
-     path('django-rq/', include('django_rq.urls'))
+    path('django-rq/', include('django_rq.urls')),
+    path('media/<path:path>', login_required(serve, login_url='https://videoflix.tech-mail.eu/'), {'document_root': settings.MEDIA_ROOT}),
 ] + staticfiles_urlpatterns() + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 
 urlpatterns += router.urls

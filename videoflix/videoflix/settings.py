@@ -176,7 +176,7 @@ REST_FRAMEWORK = {
     ),
 }
 
-DEFAULT_FROM_EMAIL = 'Site Support'
+DEFAULT_FROM_EMAIL = 'Videoflix Support'
 SERVER_EMAIL = 'admin@tech-mail.eu'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
@@ -185,7 +185,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'ttechnomeister@gmail.com'
 EMAIL_HOST_PASSWORD = 'edmsbzmeaelkpphh'
 
-FRONTEND_URL = 'http://localhost:4200'
+FRONTEND_URL = 'https://videoflix.tech-mail.eu'
 
 
 IMAGE_MAX_SIZE = 5 * 1024 * 1024  # 5 MB
