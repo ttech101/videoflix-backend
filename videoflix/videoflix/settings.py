@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-(snwa47!t1=ak__*^%=ue&e%(2bp$kpd5mh8_%a83jz@trwgc-
 DEBUG = True
 
 
-ALLOWED_HOSTS = ['127.0.0.1','videoflix-backend.tech-mail.eu','109.90.14.44']
+ALLOWED_HOSTS = ['127.0.0.1','videoflix-backend.tech-mail.eu','109.90.14.44','videoflix.tech-mail.eu']
 CORS_ALLOWED_ORIGINS = ["https://videoflix.tech-mail.eu", "https://videoflix-backend.tech-mail.eu"]
 
 
