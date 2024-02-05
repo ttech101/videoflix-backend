@@ -1,18 +1,27 @@
 
 from django.conf import settings
 from django.contrib import admin
+from django.shortcuts import redirect
 from django.urls import include, path
 from rest_framework import routers
 from account.views import LoginView, Watchlist, UserProfileView, UserViewSet, activate, change_email_and_username, change_password, change_password_acc, check_token, delete_current_user,register, reset_password
 from django.conf.urls.static import static
 from storage.views import CheckWatchlist, DeleteMovie, MovieView, PreviewSerializer, CreateMovie, UploadMovie
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.views.static import serve
+from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
+
 
 router = routers.DefaultRouter()
 # router.register(r'users', UserViewSet)
 router.register(r'preview', PreviewSerializer)
 router.register(r'movies', MovieView)
 router.register(r'checkwachlist', CheckWatchlist)
+
+
+def redirect_to_login(request):
+    return redirect(reverse_lazy('login'))
 
 urlpatterns = [
     path('', include(router.urls)),
@@ -33,6 +42,7 @@ urlpatterns = [
     path('delete_movie/', DeleteMovie.as_view(), name='delete_movie'),
     path("__debug__/", include("debug_toolbar.urls")),
     path('django-rq/', include('django_rq.urls')),
+    path('media/<path:path>', login_required(serve, login_url=reverse_lazy('redirect_to_login')), {'document_root': settings.MEDIA_ROOT}),
 ] + staticfiles_urlpatterns() + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 
 urlpatterns += router.urls

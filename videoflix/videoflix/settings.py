@@ -29,7 +29,11 @@ DEBUG = False
 
 
 ALLOWED_HOSTS = ['videoflix-backend.tech-mail.eu','videoflix.tech-mail.eu','127.0.0.1']
-CORS_ALLOWED_ORIGINS = ['http://localhost:4200',"https://videoflix.tech-mail.eu", "https://videoflix-backend.tech-mail.eu",'https://localhost:8000']
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:4200',
+    "https://videoflix.tech-mail.eu",
+    "https://videoflix-backend.tech-mail.eu",
+    'https://127.0.0.1:8000']
 
 
 
@@ -56,8 +60,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
