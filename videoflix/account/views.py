@@ -4,7 +4,6 @@ from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
 from rest_framework.views import APIView
 from rest_framework import viewsets ,status
 from rest_framework.parsers import FileUploadParser, MultiPartParser
-
 from storage.models import uploadMovie
 from storage.serializers import PreviewSerializer
 from .models import UserProfile,UserModel

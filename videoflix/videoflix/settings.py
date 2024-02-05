@@ -25,15 +25,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-(snwa47!t1=ak__*^%=ue&e%(2bp$kpd5mh8_%a83jz@trwgc-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 
-ALLOWED_HOSTS = ['127.0.0.1','videoflix-backend.tech-mail.eu','109.90.14.44','videoflix.tech-mail.eu']
-CORS_ALLOWED_ORIGINS = ["https://videoflix.tech-mail.eu", "https://videoflix-backend.tech-mail.eu"]
+ALLOWED_HOSTS = ['localhost', '127.0.0.1','videoflix-backend.tech-mail.eu','109.90.14.44','videoflix.tech-mail.eu']
+CORS_ALLOWED_ORIGINS = ['http://localhost:4200',"https://videoflix.tech-mail.eu", "https://videoflix-backend.tech-mail.eu"]
 
 
 
-CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_ALLOW_ALL = False
 #CORS_ALLOW_CREDENTIALS = True
 
 # Application definition

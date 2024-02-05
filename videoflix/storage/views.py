@@ -11,6 +11,8 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.views import APIView
 from rest_framework.decorators import permission_classes
 from django.utils.translation import gettext_lazy as _
+from rest_framework.authtoken.views import ObtainAuthToken
+
 
 @permission_classes([IsAuthenticated])
 class MovieView(viewsets.ModelViewSet):
