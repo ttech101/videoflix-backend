@@ -18,7 +18,7 @@ from .forms import CustomUserCreationForm
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import  force_str
 from django.contrib.auth.models import User
-from .functions import check_token_in_database, createMailActivateAccount, handle_uploaded_avatar
+from .functions import check_token_in_database, createMailActivateAccount, createMailDeleteAccount, createMailNewAccount, handle_uploaded_avatar
 from django.utils.http import urlsafe_base64_decode
 from django.shortcuts import render
 from rest_framework.decorators import api_view, permission_classes,authentication_classes
@@ -80,8 +80,10 @@ def register(request):
             user.is_active = False
             user.save()
             email = createMailActivateAccount(request,user)
+            emai_new_user = createMailNewAccount(request,user)
             try:
                 email.send()
+                emai_new_user.send()
                 return JsonResponse({'ok': "You have successfully registered. Please check your email!"})
             except Exception as e:
                 return HttpResponse(f"Error sending email: {str(e)}")
@@ -171,6 +173,8 @@ def change_password(request):
 def delete_current_user(request):
     user = request.user
     try:
+        email = createMailDeleteAccount(request,user)
+        email.send()
         user.delete()
         return JsonResponse({'success': True})
     except Exception as e:

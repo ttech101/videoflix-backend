@@ -22,6 +22,25 @@ def createMailActivateAccount(request,user):
     email.content_subtype = 'html'
     return email
 
+def createMailNewAccount(request,user):
+    subject = 'New user for Videoflix'
+    message = render_to_string('new_user.html', {
+        'user': user,
+    })
+    email = EmailMessage(subject, message, to=['admin@tech-mail.eu'])
+    email.content_subtype = 'html'
+    return email
+
+
+def createMailDeleteAccount(request,user):
+    subject = 'Deletet Account from Videoflix'
+    message = render_to_string('delete_acc.html', {
+        'user': user,
+    })
+    email = EmailMessage(subject, message, to=[user.email])
+    email.content_subtype = 'html'
+    return email
+
 def check_token_in_database(token):
     try:
         token_obj = Token.objects.get(key=token)
