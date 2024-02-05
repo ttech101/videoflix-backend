@@ -29,7 +29,7 @@ DEBUG = False
 
 
 ALLOWED_HOSTS = ['videoflix-backend.tech-mail.eu','videoflix.tech-mail.eu','127.0.0.1']
-CORS_ALLOWED_ORIGINS = ['http://localhost:4200',"https://videoflix.tech-mail.eu", "https://videoflix-backend.tech-mail.eu",'http://localhost:8000']
+CORS_ALLOWED_ORIGINS = ['http://localhost:4200',"https://videoflix.tech-mail.eu", "https://videoflix-backend.tech-mail.eu",'https://localhost:8000']
 
 
 
@@ -156,7 +156,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(os.path.dirname(__file__), '../../static')
+# STATIC_ROOT = os.path.join(os.path.dirname(__file__), '../../static')
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
