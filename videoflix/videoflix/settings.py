@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-(snwa47!t1=ak__*^%=ue&e%(2bp$kpd5mh8_%a83jz@trwgc-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 
 ALLOWED_HOSTS = ['127.0.0.1','videoflix-backend.tech-mail.eu','109.90.14.44']
@@ -119,7 +119,6 @@ DATABASES = {
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-#MEDIA_ROOT_AUTHENTICATION = True
 
 
 # Password validation

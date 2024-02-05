@@ -7,8 +7,6 @@ from account.views import LoginView, Watchlist, UserProfileView, UserViewSet, ac
 from django.conf.urls.static import static
 from storage.views import CheckWatchlist, DeleteMovie, MovieView, PreviewSerializer, CreateMovie, UploadMovie
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from django.contrib.auth.decorators import login_required
-from django.views.static import serve
 
 router = routers.DefaultRouter()
 # router.register(r'users', UserViewSet)
@@ -35,7 +33,6 @@ urlpatterns = [
     path('delete_movie/', DeleteMovie.as_view(), name='delete_movie'),
     path("__debug__/", include("debug_toolbar.urls")),
     path('django-rq/', include('django_rq.urls')),
-    #path('media/<path:path>', login_required(serve, login_url=None), {'document_root': settings.MEDIA_ROOT}),
 ] + staticfiles_urlpatterns() + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 
 urlpatterns += router.urls
