@@ -75,7 +75,7 @@ class LoginView(ObtainAuthToken):
         else:
             return Response({'detail': 'Email parameter missing'}, status=status.HTTP_400_BAD_REQUEST)
 
-
+@csrf_exempt
 def login_session(request):
     if request.method == 'POST':
         username = request.POST['username']
