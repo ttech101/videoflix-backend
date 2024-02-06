@@ -29,7 +29,7 @@ CSRF_COOKIE_SECURE=True
 SECURE_SSL_REDIRECT=True
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 
 ALLOWED_HOSTS = ['videoflix-backend.tech-mail.eu','videoflix.tech-mail.eu','127.0.0.1','.tech-mail.eu']
