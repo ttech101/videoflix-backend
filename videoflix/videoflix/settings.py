@@ -28,6 +28,7 @@ SESSION_COOKIE_SECURE=False
 CSRF_COOKIE_SECURE=False
 SECURE_SSL_REDIRECT=True
 CSRF_COOKIE_HTTPONLY = False
+LOGIN_REDIRECT_URL = 'https://videoflix.tech-mail.eu/home/'
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
 # SECURITY WARNING: don't run with debug turned on in production!
