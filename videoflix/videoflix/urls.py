@@ -4,7 +4,7 @@ from django.contrib import admin
 from django.shortcuts import redirect
 from django.urls import include, path
 from rest_framework import routers
-from account.views import LoginView, Watchlist, UserProfileView, UserViewSet, activate, change_email_and_username, change_password, change_password_acc, check_token, delete_current_user, my_view,register, reset_password
+from account.views import LoginView, Watchlist, UserProfileView, UserViewSet, activate, change_email_and_username, change_password, change_password_acc, check_token, delete_current_user, login_session,register, reset_password
 from django.conf.urls.static import static
 from storage.views import CheckWatchlist, DeleteMovie, MovieView, PreviewSerializer, CreateMovie, UploadMovie
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
@@ -28,7 +28,7 @@ def redirect_to_login(request):
 urlpatterns = [
     path('', include(router.urls)),
     path('admin/', admin.site.urls),
-    path('loginnew/', my_view, name='loginnew'),
+    path('login_session/', login_session, name='loginnew'),
     path('login/', LoginView.as_view(), name='login'),
     path('profile/', UserProfileView.as_view(), name='profile'),
     path('register/', register, name='register'),

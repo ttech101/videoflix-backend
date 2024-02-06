@@ -45,7 +45,6 @@ class LoginView(ObtainAuthToken):
         serializer = self.serializer_class(data=request.data,
                                            context={'request': request})
         serializer.is_valid(raise_exception=True)
-
         user = serializer.validated_data['user']
         token, created = Token.objects.get_or_create(user=user)
         try:
@@ -53,7 +52,6 @@ class LoginView(ObtainAuthToken):
             avatar_path = user_profile.avatar.url if user_profile.avatar else None
         except UserProfile.DoesNotExist:
             avatar_path = None
-        my_view(request)
         return Response({
             'session': request.session.session_key,
             'token': token.key,
@@ -77,8 +75,8 @@ class LoginView(ObtainAuthToken):
         else:
             return Response({'detail': 'Email parameter missing'}, status=status.HTTP_400_BAD_REQUEST)
 
-@csrf_exempt
-def my_view(request):
+
+def login_session(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
