@@ -55,6 +55,7 @@ class LoginView(ObtainAuthToken):
             avatar_path = None
         my_view(request)
         return Response({
+            'session': request.session.session_key,
             'token': token.key,
             # 'user_id': user.pk,
             'name' : user.first_name + ' ' + user.last_name,
