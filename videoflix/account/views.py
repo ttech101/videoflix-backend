@@ -77,7 +77,7 @@ class LoginView(ObtainAuthToken):
 
 
 def my_view(request):
-    username = request.POST["username"]
+    username = request.POST["user"]
     password = request.POST["password"]
     user = authenticate(request, username=username, password=password)
     if user is not None:
