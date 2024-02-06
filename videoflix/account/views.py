@@ -29,11 +29,6 @@ from django.core.mail import send_mail
 from django.contrib.sites.shortcuts import get_current_site
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth import get_user_model
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.models import User
-from django.http import JsonResponse
-from rest_framework.authtoken.models import Token
-from rest_framework.views import APIView
 
 
 # Create your views here.
@@ -44,34 +39,38 @@ class UserViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
 class LoginView(ObtainAuthToken):
-     def post(self, request, *args, **kwargs):
-        email = request.data.get('email')
-        password = request.data.get('password')
-
-        if email is None or password is None:
-            return JsonResponse({'error': 'Please provide both email and password'}, status=400)
-
-        user = authenticate(username=email, password=password)
-
-        if user is None:
-            return JsonResponse({'error': 'Invalid credentials'}, status=401)
-
-        login(request, user)  # Manually log in the user
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data,
+                                           context={'request': request})
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data['user']
         token, created = Token.objects.get_or_create(user=user)
-
         try:
             user_profile = user.userprofile
             avatar_path = user_profile.avatar.url if user_profile.avatar else None
         except UserProfile.DoesNotExist:
             avatar_path = None
-
-        return JsonResponse({
+        return Response({
             'token': token.key,
-            'name': user.first_name + ' ' + user.last_name,
+            # 'user_id': user.pk,
+            'name' : user.first_name + ' ' + user.last_name,
             'avatar_path': avatar_path,
             'autoplay': user_profile.automatic_playback,
             'language': user_profile.language
         })
+
+
+    def get(self, request, *args, **kwargs):
+        # Überprüfen, ob der Benutzer angemeldet ist
+        if request.user.is_authenticated:
+            return Response({'user_exists': True})
+        # Wenn der Benutzer nicht authentifiziert ist, überprüfen Sie die E-Mail-Adresse
+        email = request.query_params.get('email', None)
+        if email:
+            user_exists = User.objects.filter(email=email).exists()
+            return Response({'user_exists': user_exists})
+        else:
+            return Response({'detail': 'Email parameter missing'}, status=status.HTTP_400_BAD_REQUEST)
 
 @csrf_exempt
 def register(request):
