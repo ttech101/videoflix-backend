@@ -1,6 +1,7 @@
 import uuid
 from django.forms import ValidationError
 from django.http import HttpResponseBadRequest, JsonResponse
+from django.shortcuts import redirect
 from storage.models import uploadMovie
 from storage.serializers import MovieSerializer,PreviewSerializer
 from rest_framework.permissions import IsAuthenticated
@@ -22,6 +23,14 @@ class MovieView(viewsets.ModelViewSet):
     def get_queryset(self):
         select = self.request.query_params.get('select', None)
         return uploadMovie.objects.filter(random_key=select)
+
+
+@permission_classes([IsAuthenticated])
+def ShowMedia(request):
+    if not request.user.has_perm(''):
+        return redirect('https://videoflix.tech-mail.eu')
+    else:
+        pass
 
 
 
