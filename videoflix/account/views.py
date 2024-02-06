@@ -1,6 +1,6 @@
 import os
 from django.conf import settings
-from django.http import FileResponse, HttpResponse, HttpResponseBadRequest, HttpResponseForbidden, HttpResponseNotFound, JsonResponse
+from django.http import FileResponse, HttpResponse, HttpResponseBadRequest, HttpResponseForbidden, HttpResponseNotFound, HttpResponseRedirect, JsonResponse
 from rest_framework.views import APIView
 from rest_framework import viewsets ,status
 from rest_framework.parsers import FileUploadParser, MultiPartParser
@@ -42,38 +42,40 @@ class UserViewSet(viewsets.ModelViewSet):
 
 class LoginView(ObtainAuthToken):
     def post(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data,
-                                           context={'request': request})
-        serializer.is_valid(raise_exception=True)
-        user = serializer.validated_data['user']
-        token, created = Token.objects.get_or_create(user=user)
-        try:
-            user_profile = user.userprofile
-            avatar_path = user_profile.avatar.url if user_profile.avatar else None
-        except UserProfile.DoesNotExist:
-            avatar_path = None
-        return Response({
-            'session': request.session.session_key,
-            'token': token.key,
-            # 'user_id': user.pk,
-            'name' : user.first_name + ' ' + user.last_name,
-            'avatar_path': avatar_path,
-            'autoplay': user_profile.automatic_playback,
-            'language': user_profile.language
-        })
+        if request.method == 'POST':
+            serializer = self.serializer_class(data=request.data,
+                                               context={'request': request})
+            serializer.is_valid(raise_exception=True)
+            user = serializer.validated_data['user']
+            token, created = Token.objects.get_or_create(user=user)
+            try:
+                user_profile = user.userprofile
+                avatar_path = user_profile.avatar.url if user_profile.avatar else None
+            except UserProfile.DoesNotExist:
+                avatar_path = None
+            return Response({
+                'session': request.session.session_key,
+                'token': token.key,
+                # 'user_id': user.pk,
+                'name' : user.first_name + ' ' + user.last_name,
+                'avatar_path': avatar_path,
+                'autoplay': user_profile.automatic_playback,
+                'language': user_profile.language
+            })
 
 
     def get(self, request, *args, **kwargs):
-        # Überprüfen, ob der Benutzer angemeldet ist
-        if request.user.is_authenticated:
-            return Response({'user_exists': True})
-        # Wenn der Benutzer nicht authentifiziert ist, überprüfen Sie die E-Mail-Adresse
-        email = request.query_params.get('email', None)
-        if email:
-            user_exists = User.objects.filter(email=email).exists()
-            return Response({'user_exists': user_exists})
-        else:
-            return Response({'detail': 'Email parameter missing'}, status=status.HTTP_400_BAD_REQUEST)
+        if request.method == 'GET':
+            # Überprüfen, ob der Benutzer angemeldet ist
+            if request.user.is_authenticated:
+                return Response({'user_exists': True})
+            # Wenn der Benutzer nicht authentifiziert ist, überprüfen Sie die E-Mail-Adresse
+            email = request.query_params.get('email', None)
+            if email:
+                user_exists = User.objects.filter(email=email).exists()
+                return Response({'user_exists': user_exists})
+            else:
+                return Response({'detail': 'Email parameter missing'}, status=status.HTTP_400_BAD_REQUEST)
 
 @csrf_exempt
 def login_session(request):
@@ -81,12 +83,14 @@ def login_session(request):
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
+        print(username,password)
         if user is not None:
             login(request, user)
             # set user-specific data in the session
             request.session['username'] = username
             request.session.save()
-            return redirect('home')
+            return HttpResponse("Login successful!")
+            return redirect('login')
         else:
             # handle invalid login
             ...
