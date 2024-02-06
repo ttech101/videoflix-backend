@@ -22,17 +22,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-(snwa47!t1=ak__*^%=ue&e%(2bp$kpd5mh8_%a83jz@trwgc-'
-#SECRET_KEY = 'N(!ynBBNHqm|k+zo"?9>C~sg:)1ndNRp^o0.{-5w?NC6ZBpoM~-OiFEY%0u;MG'
-
-SESSION_COOKIE_SECURE = True
-SESSION_COOKIE_HTTPONLY = True
+#SECRET_KEY = 'django-insecure-(snwa47!t1=ak__*^%=ue&e%(2bp$kpd5mh8_%a83jz@trwgc-'
+SECRET_KEY = 'N(!ynBBNHqm|k+zo"?9>C~sg:)1ndNRp^o0.{-5w?NC6ZBpoM~-OiFEY%0u;MG'
 
 
 
-#CSRF_COOKIE_SECURE=True
-#SECURE_SSL_REDIRECT=True
-# CSRF_COOKIE_HTTPONLY = True
 
 
 
@@ -235,3 +229,11 @@ RQ_QUEUES = {
     }
 }
 
+#SESSION_COOKIE_HTTPONLY = True
+
+
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE=True
+
+#SECURE_SSL_REDIRECT=True
+# CSRF_COOKIE_HTTPONLY = True
