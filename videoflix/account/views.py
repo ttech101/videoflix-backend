@@ -29,7 +29,7 @@ from django.core.mail import send_mail
 from django.contrib.sites.shortcuts import get_current_site
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth import get_user_model
-from django.contrib.auth import login
+from django.contrib.auth import authenticate, login
 
 
 # Create your views here.
@@ -44,7 +44,7 @@ class LoginView(ObtainAuthToken):
         serializer = self.serializer_class(data=request.data,
                                            context={'request': request})
         serializer.is_valid(raise_exception=True)
-        login(request, user)
+
         user = serializer.validated_data['user']
         token, created = Token.objects.get_or_create(user=user)
         try:
@@ -52,6 +52,7 @@ class LoginView(ObtainAuthToken):
             avatar_path = user_profile.avatar.url if user_profile.avatar else None
         except UserProfile.DoesNotExist:
             avatar_path = None
+        my_view(request)
         return Response({
             'token': token.key,
             # 'user_id': user.pk,
@@ -73,6 +74,20 @@ class LoginView(ObtainAuthToken):
             return Response({'user_exists': user_exists})
         else:
             return Response({'detail': 'Email parameter missing'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+def my_view(request):
+    username = request.POST["username"]
+    password = request.POST["password"]
+    user = authenticate(request, username=username, password=password)
+    if user is not None:
+        login(request, user)
+        # Redirect to a success page.
+        ...
+    else:
+        # Return an 'invalid login' error message.
+        ...
+
 
 @csrf_exempt
 def register(request):
