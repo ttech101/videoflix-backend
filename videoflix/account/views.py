@@ -357,7 +357,7 @@ def serve_protected_media(request, path):
 
 
 def get_sessionid(request):
-    sessionid = request.COOKIES.get('sessionid', None)
+    sessionid = request.session.session_key
     if sessionid:
         return JsonResponse({'sessionid': sessionid})
     else:
