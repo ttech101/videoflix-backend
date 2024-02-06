@@ -235,7 +235,7 @@ RQ_QUEUES = {
 SESSION_COOKIE_SAMESITE = None
 CSRF_USE_SESSIONS = True
 
-SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 
 SESSION_COOKIE_HTTPONLY = False
 SESSION_COOKIE_SECURE = True

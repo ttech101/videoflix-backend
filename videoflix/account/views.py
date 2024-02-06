@@ -19,7 +19,7 @@ from django.utils.encoding import  force_str
 from django.contrib.auth.models import User
 from .functions import check_token_in_database, createMailActivateAccount, createMailDeleteAccount, createMailNewAccount, handle_uploaded_avatar
 from django.utils.http import urlsafe_base64_decode
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from rest_framework.decorators import api_view, permission_classes,authentication_classes
 from rest_framework.permissions import IsAuthenticated,AllowAny
 from django.utils.crypto import get_random_string
@@ -79,18 +79,21 @@ class LoginView(ObtainAuthToken):
 
 @csrf_exempt
 def my_view(request):
-    print('???')
-    username = request.POST["username"]
-    password = request.POST["password"]
-    user = authenticate(request, username=username, password=password)
-    print(user)
-    if user is not None:
-        login(request, user)
-        # Redirect to a success page.
-        ...
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            # set user-specific data in the session
+            request.session['username'] = username
+            request.session.save()
+            return redirect('home')
+        else:
+            # handle invalid login
+            ...
     else:
-        print('login faild')
-        # Return an 'invalid login' error message.
+        # display the login form
         ...
 
 
@@ -354,11 +357,3 @@ def serve_protected_media(request, path):
     else:
         # Wenn die Datei nicht existiert, geben Sie einen 404-Fehler zurück.
         return HttpResponseNotFound('Datei nicht gefunden.')
-
-@csrf_exempt
-def get_sessionid(request):
-    sessionid = request.session.session_key
-    if sessionid:
-        return JsonResponse({'sessionid': sessionid})
-    else:
-        return JsonResponse({'error': 'Sessionid not found'}, status=400)
