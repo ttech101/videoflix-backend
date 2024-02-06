@@ -29,6 +29,7 @@ from django.core.mail import send_mail
 from django.contrib.sites.shortcuts import get_current_site
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth import get_user_model
+from django.contrib.auth import login
 
 
 # Create your views here.
@@ -43,6 +44,7 @@ class LoginView(ObtainAuthToken):
         serializer = self.serializer_class(data=request.data,
                                            context={'request': request})
         serializer.is_valid(raise_exception=True)
+        login(request, user)
         user = serializer.validated_data['user']
         token, created = Token.objects.get_or_create(user=user)
         try:
