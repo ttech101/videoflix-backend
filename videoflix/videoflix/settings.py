@@ -33,13 +33,10 @@ DEBUG = False
 
 
 ALLOWED_HOSTS = ['videoflix-backend.tech-mail.eu','videoflix.tech-mail.eu','127.0.0.1','.tech-mail.eu']
-# CORS_ALLOWED_ORIGINS = [
-#     'http://localhost:4200',
-#     "https://videoflix.tech-mail.eu",
-#     "https://videoflix-backend.tech-mail.eu",
-#     'https://127.0.0.1:8000',
-#     'capacitor://localhost',
-#     'http://localhost']
+CORS_ALLOWED_ORIGINS = [
+    "https://videoflix.tech-mail.eu",
+    "https://videoflix-backend.tech-mail.eu",
+]
 
 
 
