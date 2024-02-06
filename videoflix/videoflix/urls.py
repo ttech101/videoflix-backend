@@ -43,6 +43,6 @@ urlpatterns = [
     path("__debug__/", include("debug_toolbar.urls")),
     path('django-rq/', include('django_rq.urls')),
     # path('media/<path:path>', login_required(serve, login_url='https://videoflix.tech-mail.eu'), {'document_root': settings.MEDIA_ROOT}),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 urlpatterns += router.urls
