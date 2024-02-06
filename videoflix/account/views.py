@@ -39,6 +39,7 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserProfileSerializer
     permission_classes = [IsAuthenticated]
 
+
 class LoginView(ObtainAuthToken):
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data,
@@ -75,17 +76,20 @@ class LoginView(ObtainAuthToken):
         else:
             return Response({'detail': 'Email parameter missing'}, status=status.HTTP_400_BAD_REQUEST)
 
-
+@csrf_exempt
 def my_view(request):
+    print('???')
     username = request.POST["username"]
     password = request.POST["password"]
-    print(username,password)
     user = authenticate(request, username=username, password=password)
+    print(user)
     if user is not None:
         login(request, user)
+        print('login')
         # Redirect to a success page.
         ...
     else:
+        print('login faild')
         # Return an 'invalid login' error message.
         ...
 

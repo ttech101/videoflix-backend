@@ -35,7 +35,7 @@ SECRET_KEY = 'N(!ynBBNHqm|k+zo"?9>C~sg:)1ndNRp^o0.{-5w?NC6ZBpoM~-OiFEY%0u;MG'
 DEBUG = False
 
 
-ALLOWED_HOSTS = ['videoflix-backend.tech-mail.eu','videoflix.tech-mail.eu','127.0.0.1','.tech-mail.eu']
+ALLOWED_HOSTS = ['127.0.0.1:4200','videoflix-backend.tech-mail.eu','videoflix.tech-mail.eu','127.0.0.1','.tech-mail.eu']
 CORS_ALLOWED_ORIGINS = [
     "https://videoflix.tech-mail.eu",
     "https://videoflix-backend.tech-mail.eu",
@@ -77,7 +77,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'videoflix.middleware.AuthRequiredMiddleware'
+   # 'videoflix.middleware.AuthRequiredMiddleware'
 ]
 
 INTERNAL_IPS = [
@@ -229,12 +229,12 @@ RQ_QUEUES = {
     }
 }
 
-SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
-#SESSION_COOKIE_HTTPONLY = True
+# SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
+# #SESSION_COOKIE_HTTPONLY = True
 
 
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE=True
+# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE=True
 
 #SECURE_SSL_REDIRECT=True
 # CSRF_COOKIE_HTTPONLY = True
