@@ -36,6 +36,8 @@ ALLOWED_HOSTS = ['videoflix-backend.tech-mail.eu','videoflix.tech-mail.eu','127.
 CORS_ALLOWED_ORIGINS = [
     "https://videoflix.tech-mail.eu",
     "https://videoflix-backend.tech-mail.eu",
+    "http://127.0.0.1",
+    "http://127.0.0.1:8000",
 ]
 
 
