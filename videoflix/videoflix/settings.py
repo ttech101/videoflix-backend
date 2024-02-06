@@ -43,6 +43,10 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:8000",
 ]
 
+CORS_ORIGIN_WHITELIST = [
+    "https://videoflix.tech-mail.eu",
+]
+
 
 
 CORS_ORIGIN_ALLOW_ALL = False
@@ -228,6 +232,8 @@ RQ_QUEUES = {
         'DEFAULT_TIMEOUT': 360,
     }
 }
+SESSION_COOKIE_SAMESITE = None
+CSRF_USE_SESSIONS = True
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 
