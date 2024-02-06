@@ -1,6 +1,6 @@
 import os
 from django.conf import settings
-from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
+from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseForbidden, HttpResponseNotFound, JsonResponse
 from rest_framework.views import APIView
 from rest_framework import viewsets ,status
 from rest_framework.parsers import FileUploadParser, MultiPartParser
@@ -307,3 +307,27 @@ class Watchlist(APIView):
                 return Response({'error': 'Key not found in watchlist'}, status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response({'error': 'Key not provided in the DELETE data'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+def serve_protected_media(request, path):
+    """
+    Diese View dient zum Schutz des direkten Zugriffs auf Dateien im Media-Ordner.
+    Sie prüft, ob der Benutzer authentifiziert ist und die erforderlichen Berechtigungen hat.
+    """
+    if request.user.is_authenticated and request.user.has_perm('storage.can_access_media'):
+        # Bilden Sie den vollständigen Pfad zur angeforderten Datei im Media-Ordner.
+        file_path = os.path.join(settings.MEDIA_ROOT, path)
+
+        # Überprüfen Sie, ob die angeforderte Datei tatsächlich im Media-Ordner liegt.
+        if os.path.exists(file_path):
+            # Öffnen und bedienen Sie die Datei.
+            with open(file_path, 'rb') as file:
+                response = HttpResponse(file.read(), content_type='application/octet-stream')
+            return response
+        else:
+            # Wenn die Datei nicht existiert, geben Sie einen 404-Fehler zurück.
+            return HttpResponseNotFound('Datei nicht gefunden.')
+    else:
+        # Wenn der Benutzer nicht authentifiziert ist oder die Berechtigungen fehlen,
+        # geben Sie einen 403-Fehler zurück.
+        return HttpResponseForbidden('Zugriff verweigert.')
