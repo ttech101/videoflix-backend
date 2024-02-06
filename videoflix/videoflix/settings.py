@@ -30,7 +30,7 @@ SECRET_KEY = 'N(!ynBBNHqm|k+zo"?9>C~sg:)1ndNRp^o0.{-5w?NC6ZBpoM~-OiFEY%0u;MG'
 
 
 
-SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
@@ -229,6 +229,7 @@ RQ_QUEUES = {
     }
 }
 
+SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
 #SESSION_COOKIE_HTTPONLY = True
 
 
