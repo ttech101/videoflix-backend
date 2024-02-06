@@ -354,3 +354,11 @@ def serve_protected_media(request, path):
     else:
         # Wenn die Datei nicht existiert, geben Sie einen 404-Fehler zurück.
         return HttpResponseNotFound('Datei nicht gefunden.')
+
+
+def get_sessionid(request):
+    sessionid = request.COOKIES.get('sessionid', None)
+    if sessionid:
+        return JsonResponse({'sessionid': sessionid})
+    else:
+        return JsonResponse({'error': 'Sessionid not found'}, status=400)
