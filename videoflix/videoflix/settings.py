@@ -29,10 +29,10 @@ CSRF_COOKIE_SECURE=False
 SECURE_SSL_REDIRECT=True
 CSRF_COOKIE_HTTPONLY = False
 
-CSRF_USE_SESSIONS = False
-CSRF_COOKIE_HTTPONLY = False  # this is the default, and should be kept this way
-CSRF_COOKIE_NAME = 'XSRF-TOKEN'
-CSRF_HEADER_NAME = 'HTTP_X_XSRF_TOKEN'
+# CSRF_USE_SESSIONS = False
+# CSRF_COOKIE_HTTPONLY = False  # this is the default, and should be kept this way
+# CSRF_COOKIE_NAME = 'XSRF-TOKEN'
+# CSRF_HEADER_NAME = 'HTTP_X_XSRF_TOKEN'
 
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
