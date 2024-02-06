@@ -85,8 +85,6 @@ def my_view(request):
     print(user)
     if user is not None:
         login(request, user)
-        return request.session['username'] = username
-        print('login')
         # Redirect to a success page.
         ...
     else:
