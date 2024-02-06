@@ -43,8 +43,8 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserProfileSerializer
     permission_classes = [IsAuthenticated]
 
-class LoginView(APIView):
-    def post(self, request, *args, **kwargs):
+class LoginView(ObtainAuthToken):
+     def post(self, request, *args, **kwargs):
         email = request.data.get('email')
         password = request.data.get('password')
 
@@ -72,18 +72,6 @@ class LoginView(APIView):
             'autoplay': user_profile.automatic_playback,
             'language': user_profile.language
         })
-
-    def get(self, request, *args, **kwargs):
-        # Überprüfen, ob der Benutzer angemeldet ist
-        if request.user.is_authenticated:
-            return JsonResponse({'user_exists': True})
-        # Wenn der Benutzer nicht authentifiziert ist, überprüfen Sie die E-Mail-Adresse
-        email = request.query_params.get('email', None)
-        if email:
-            user_exists = User.objects.filter(email=email).exists()
-            return JsonResponse({'user_exists': user_exists})
-        else:
-            return JsonResponse({'detail': 'Email parameter missing'}, status=400)
 
 @csrf_exempt
 def register(request):
