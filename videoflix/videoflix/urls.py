@@ -45,7 +45,7 @@ urlpatterns = [
     path("__debug__/", include("debug_toolbar.urls")),
     path('django-rq/', include('django_rq.urls')),
     #path('media/<path:path>', login_required(serve, login_url=reverse_lazy('redirect_to_login')), {'document_root': settings.MEDIA_ROOT}),
-    re_path(r'^media/(?P<path>.*)$', serve_protected_media),
+    #re_path(r'^media/(?P<path>.*)$', serve_protected_media),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 urlpatterns += router.urls
