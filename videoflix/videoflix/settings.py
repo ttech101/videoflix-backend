@@ -22,18 +22,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = 'django-insecure-(snwa47!t1=ak__*^%=ue&e%(2bp$kpd5mh8_%a83jz@trwgc-'
 SECRET_KEY = 'N(!ynBBNHqm|k+zo"?9>C~sg:)1ndNRp^o0.{-5w?NC6ZBpoM~-OiFEY%0u;MG'
 
-
-
-
-
-
-
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
+DEBUG = False
 
 ALLOWED_HOSTS = ['videoflix-backend.tech-mail.eu','videoflix.tech-mail.eu','127.0.0.1','.tech-mail.eu']
 CORS_ALLOWED_ORIGINS = [
@@ -43,13 +35,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:8000",
 ]
 
-CORS_ORIGIN_WHITELIST = [
-    "https://videoflix.tech-mail.eu",
-]
-
-
-
-CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_ALLOW_ALL = False
 #CORS_ALLOW_CREDENTIALS = True
 
 # Application definition
@@ -137,10 +123,6 @@ DATABASES = {
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-# MEDIA_URL = '/media/'
-
-
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
@@ -221,7 +203,6 @@ FILE_UPLOAD_MAX_SIZE = {
     'video': VIDEO_MAX_SIZE,
 }
 
-
 RQ_QUEUES = {
     'default': {
         'HOST': 'localhost',
@@ -232,13 +213,3 @@ RQ_QUEUES = {
         'DEFAULT_TIMEOUT': 360,
     }
 }
-# SESSION_COOKIE_SAMESITE = None
-# CSRF_USE_SESSIONS = False
-
-SESSION_ENGINE = 'django.contrib.sessions.backends.db'
-
-# SESSION_COOKIE_HTTPONLY = False
-# SESSION_COOKIE_SECURE = True
-# CSRF_COOKIE_SECURE=False
-#SECURE_SSL_REDIRECT=True
-# CSRF_COOKIE_HTTPONLY = True

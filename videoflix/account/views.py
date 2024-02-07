@@ -317,23 +317,26 @@ class Watchlist(APIView):
 
 
 def serve_protected_media(request, path):
-    """
-    Diese View dient zum Schutz des direkten Zugriffs auf Dateien im Media-Ordner.
-    Sie prüft, ob der Benutzer authentifiziert ist und die erforderlichen Berechtigungen hat.
-    """
-    # Bilden Sie den vollständigen Pfad zur angeforderten Datei im Media-Ordner.
-    file_path = os.path.join(settings.MEDIA_ROOT, path)
+    token = request.headers.get('Authorization')
+    if not token:
+        return HttpResponseForbidden("Token fehlt")
 
-    # Überprüfen Sie, ob die angeforderte Datei tatsächlich im Media-Ordner liegt.
-    if os.path.exists(file_path):
-        # Überprüfen Sie, ob der Benutzer authentifiziert ist und die Berechtigungen hat.
-        if request.user.is_authenticated and request.user.has_perm('storage.can_access_media'):
-            # Bedienen Sie die Datei, wenn der Benutzer authentifiziert und autorisiert ist.
-            return FileResponse(open(file_path, 'rb'), content_type='application/octet-stream')
-        else:
-            # Wenn der Benutzer nicht authentifiziert ist oder die Berechtigungen fehlen,
-            # geben Sie einen 403-Fehler zurück.
-            return HttpResponseForbidden('Zugriff verweigert.')
-    else:
-        # Wenn die Datei nicht existiert, geben Sie einen 404-Fehler zurück.
-        return HttpResponseNotFound('Datei nicht gefunden.')
+    token_key = token.split()[1]  # Split und wähle den Token-Teil
+    try:
+        Token.objects.get(key=token_key)
+    except Token.DoesNotExist:
+        return HttpResponseForbidden("Ungültiger Token")
+
+    # Überprüfen, ob der Benutzer berechtigt ist, die Datei zu erhalten.
+    # Sie können dies an Ihre spezifischen Anforderungen anpassen.
+    # Zum Beispiel können Sie hier überprüfen, ob der Benutzer auf die Datei zugreifen darf.
+
+    media_path = os.path.join(settings.MEDIA_ROOT, path)
+    with open(media_path, 'rb') as media_file:
+        response = HttpResponse(media_file.read())
+
+    # Setzen Sie den Content-Type entsprechend des Dateityps.
+    # Zum Beispiel: 'image/jpeg' für JPEG-Bilder, 'application/pdf' für PDF-Dateien usw.
+    response['Content-Type'] = 'image/*'  # Beispiel für JPEG-Bilder, bitte anpassen
+
+    return response
