@@ -25,17 +25,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'N(!ynBBNHqm|k+zo"?9>C~sg:)1ndNRp^o0.{-5w?NC6ZBpoM~-OiFEY%0u;MG'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['videoflix-backend.tech-mail.eu','videoflix.tech-mail.eu','127.0.0.1','.tech-mail.eu']
-CORS_ALLOWED_ORIGINS = [
-    "https://videoflix.tech-mail.eu",
-    "https://videoflix-backend.tech-mail.eu",
-    "http://127.0.0.1",
-    "http://127.0.0.1:8000",
-]
+# CORS_ALLOWED_ORIGINS = [
+#     "https://videoflix.tech-mail.eu",
+#     "https://videoflix-backend.tech-mail.eu",
+#     "http://127.0.0.1",
+#     "http://127.0.0.1:8000",
+# ]
 
-CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_ALLOW_ALL = True
 #CORS_ALLOW_CREDENTIALS = True
 
 # Application definition
@@ -66,7 +66,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'videoflix.middleware.AuthRequiredMiddleware'
 ]
 
 INTERNAL_IPS = [
@@ -193,7 +192,7 @@ LOGIN_URL = 'https://videoflix.tech-mail.eu/login/'
 
 
 IMAGE_MAX_SIZE = 5 * 1024 * 1024  # 5 MB
-VIDEO_MAX_SIZE = 50 * 1024 * 1024  # 50 MB
+VIDEO_MAX_SIZE = 150 * 1024 * 1024  # 50 MB
 DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760  # 10
 FILE_UPLOAD_MAX_MEMORY_SIZE = 10485760  # 10
 
@@ -208,7 +207,7 @@ RQ_QUEUES = {
         'PORT': 6379,
         'DB': 0,
         # 'USERNAME': 'some-user',
-#        'PASSWORD': 'foobared',
+        'PASSWORD': 'foobared',
         'DEFAULT_TIMEOUT': 360,
     }
 }

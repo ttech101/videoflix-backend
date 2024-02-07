@@ -135,15 +135,17 @@ class CreateMovie(APIView):
         movie.age_rating = data.get('selectedAge', 0)
         movie.upload_visible_check = data.get('upload_visible_check', False)
         movie.video_length = data.get('video_length', '')
+        movie.automatic_cover = data.get('automatic_cover', True)
+        movie.automatic_image = data.get('automatic_image', True)
         movie.save()
 
 
 class UploadMovie(APIView):
     permission_classes = [IsAuthenticated]
     authentication_classes = [TokenAuthentication]
-    MAX_COVER_SIZE_MB = 1
+    MAX_COVER_SIZE_MB = 2
     MAX_BIG_PICTURE_SIZE_MB = 5
-    MAX_VIDEO_SIZE_MB = 50
+    MAX_VIDEO_SIZE_MB = 150
     def validate_file_size(self, file, max_size_mb, field_name):
         if file:
             max_size_bytes = max_size_mb * 1024 * 1024

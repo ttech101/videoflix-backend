@@ -31,6 +31,9 @@ class uploadMovie(models.Model):
     big_picture = models.ImageField(upload_to='big_picture/', null=True, blank=True)
     video = models.FileField(upload_to='video/', null=True, blank=True)
     random_key  = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+    automatic_cover = models.BooleanField(default=False)
+    automatic_image = models.BooleanField(default=False)
+    convert_running = models.BooleanField(default=False)
 
 
     def save(self, *args, **kwargs):
