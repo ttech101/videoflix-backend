@@ -78,28 +78,6 @@ class LoginView(ObtainAuthToken):
                 return Response({'detail': 'Email parameter missing'}, status=status.HTTP_400_BAD_REQUEST)
 
 @csrf_exempt
-def login_session(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        print(username,password)
-        if user is not None:
-            login(request, user)
-            # set user-specific data in the session
-            request.session['username'] = username
-            request.session.save()
-            return HttpResponse("Login successful!")
-            return redirect('login')
-        else:
-            # handle invalid login
-            ...
-    else:
-        # display the login form
-        ...
-
-
-@csrf_exempt
 def register(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
