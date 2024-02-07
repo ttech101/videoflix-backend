@@ -316,5 +316,7 @@ class Watchlist(APIView):
             return Response({'error': 'Key not provided in the DELETE data'}, status=status.HTTP_400_BAD_REQUEST)
 
 
-def serve_protected_media(request):
-    return True
+
+def media_123(request):
+    print('hier bin ich')
+    return HttpResponse(status=status.HTTP_200_OK)

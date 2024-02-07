@@ -54,7 +54,6 @@ INSTALLED_APPS = [
     'storage.apps.StorageConfig',
     'corsheaders',
     "debug_toolbar",
-
 ]
 
 MIDDLEWARE = [
