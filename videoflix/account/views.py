@@ -316,27 +316,5 @@ class Watchlist(APIView):
             return Response({'error': 'Key not provided in the DELETE data'}, status=status.HTTP_400_BAD_REQUEST)
 
 
-def serve_protected_media(request, path):
-    token = request.headers.get('Authorization')
-    if not token:
-        return HttpResponseForbidden("Token fehlt")
-
-    token_key = token.split()[1]  # Split und wähle den Token-Teil
-    try:
-        Token.objects.get(key=token_key)
-    except Token.DoesNotExist:
-        return HttpResponseForbidden("Ungültiger Token")
-
-    # Überprüfen, ob der Benutzer berechtigt ist, die Datei zu erhalten.
-    # Sie können dies an Ihre spezifischen Anforderungen anpassen.
-    # Zum Beispiel können Sie hier überprüfen, ob der Benutzer auf die Datei zugreifen darf.
-
-    media_path = os.path.join(settings.MEDIA_ROOT, path)
-    with open(media_path, 'rb') as media_file:
-        response = HttpResponse(media_file.read())
-
-    # Setzen Sie den Content-Type entsprechend des Dateityps.
-    # Zum Beispiel: 'image/jpeg' für JPEG-Bilder, 'application/pdf' für PDF-Dateien usw.
-    response['Content-Type'] = 'image/*'  # Beispiel für JPEG-Bilder, bitte anpassen
-
-    return response
+def serve_protected_media(request):
+    return True
