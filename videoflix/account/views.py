@@ -7,7 +7,7 @@ from rest_framework.parsers import FileUploadParser, MultiPartParser
 from storage.models import uploadMovie
 from storage.serializers import PreviewSerializer
 from .models import UserProfile,UserModel
-from .serializers import UserProfileSerializer, UserModelSerializer
+from .serializers import UserProfileSerializer
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.models import Token
@@ -29,19 +29,34 @@ from django.core.mail import send_mail
 from django.contrib.sites.shortcuts import get_current_site
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth import get_user_model
-from django.contrib.auth import authenticate, login
+
 
 
 # Create your views here.
 @permission_classes([IsAuthenticated])
 class UserViewSet(viewsets.ModelViewSet):
+    """
+    ViewSet for managing user profiles.
+    This ViewSet provides CRUD operations for user profiles.
+    """
     queryset = UserProfile.objects.all()
     serializer_class = UserProfileSerializer
     permission_classes = [IsAuthenticated]
 
 
 class LoginView(ObtainAuthToken):
+    """
+    Custom view for user login.
+    This view handles user authentication and provides a token on successful login.
+    """
     def post(self, request, *args, **kwargs):
+        """
+        Handle POST request for user login.
+        Parameters:
+        - request: Request object.
+        Returns:
+        - Response: JSON response containing session key, authentication token, user name, avatar path, autoplay status, and language.
+        """
         if request.method == 'POST':
             serializer = self.serializer_class(data=request.data,
                                                context={'request': request})
@@ -56,7 +71,6 @@ class LoginView(ObtainAuthToken):
             return Response({
                 'session': request.session.session_key,
                 'token': token.key,
-                # 'user_id': user.pk,
                 'name' : user.first_name + ' ' + user.last_name,
                 'avatar_path': avatar_path,
                 'autoplay': user_profile.automatic_playback,
@@ -65,11 +79,14 @@ class LoginView(ObtainAuthToken):
 
 
     def get(self, request, *args, **kwargs):
+        """
+        Check if a user exists.
+        Returns:
+        - Response: JSON response indicating whether the user exists or not.
+        """
         if request.method == 'GET':
-            # Überprüfen, ob der Benutzer angemeldet ist
             if request.user.is_authenticated:
                 return Response({'user_exists': True})
-            # Wenn der Benutzer nicht authentifiziert ist, überprüfen Sie die E-Mail-Adresse
             email = request.query_params.get('email', None)
             if email:
                 user_exists = User.objects.filter(email=email).exists()
@@ -79,6 +96,10 @@ class LoginView(ObtainAuthToken):
 
 @csrf_exempt
 def register(request):
+    """
+    View for user registration.
+    This view handles user registration via POST request.
+    """
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
@@ -109,6 +130,10 @@ def register(request):
     return HttpResponseBadRequest("Invalid request method")
 
 def activate(request, uidb64, token):
+    """
+    View for activating user account.
+    This view handles the activation of user account using the activation link.
+    """
     try:
         uid = force_str(urlsafe_base64_decode(uidb64))
         user = User.objects.get(pk=uid)
@@ -124,6 +149,10 @@ def activate(request, uidb64, token):
 
 
 def check_token(request):
+    """
+    View for checking token validity.
+    This view checks if the provided token exists in the database.
+    """
     token = request.GET.get('token')
     if token:
         token_exists = check_token_in_database(token)
@@ -137,6 +166,10 @@ def check_token(request):
 @api_view(['POST',])
 @permission_classes([AllowAny])
 def reset_password(request):
+    """
+    View for resetting user password.
+    This view handles the process of resetting user password and sending a reset email.
+    """
     if request.method == 'POST':
         email = request.data.get('email')
         try:
@@ -160,6 +193,10 @@ def reset_password(request):
 @api_view(['POST',])
 @permission_classes([AllowAny])
 def change_password(request):
+    """
+    View for changing user password using a reset token.
+    This view handles the process of changing user password using a reset token.
+    """
     if request.method == 'POST':
         token = request.data.get('token')
         password = request.data.get('password')
@@ -177,6 +214,10 @@ def change_password(request):
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def delete_current_user(request):
+    """
+    View for deleting the current user account.
+    This view handles the process of deleting the current user account.
+    """
     user = request.user
     try:
         email = createMailDeleteAccount(request,user)
@@ -188,10 +229,19 @@ def delete_current_user(request):
 
 
 class UserProfileView(APIView):
+    """
+    View for managing user profiles.
+    This view provides endpoints for retrieving, updating, and uploading user profile information.
+    """
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
     parser_classes = [MultiPartParser]
     def get(self, request, *args, **kwargs):
+        """
+        Get user profile information.
+        Returns:
+        - JsonResponse: JSON response containing user profile information.
+        """
         user_profile = UserProfile.objects.get(user=request.user)
         user = request.user
         data = {
@@ -203,6 +253,11 @@ class UserProfileView(APIView):
         }
         return JsonResponse(data)
     def put(self, request, *args, **kwargs):
+        """
+        Update user profile.
+        Returns:
+        - Response: HTTP response indicating success.
+        """
         user_profile = UserProfile.objects.get(user=request.user)
         user = request.user
         user_profile.automatic_playback = request.data.get('automatic_playback', user_profile.automatic_playback)
@@ -214,6 +269,11 @@ class UserProfileView(APIView):
         return Response(status=status.HTTP_200_OK)
 
     def post(self, request, *args, **kwargs):
+        """
+        Upload avatar for user profile.
+        Returns:
+        - Response: HTTP response indicating success or failure.
+        """
         user_profile = UserProfile.objects.get(user=request.user)
         avatar_file = request.FILES.get('avatar')
 
@@ -245,6 +305,10 @@ def change_email_and_username(request):
 @api_view(['PUT'])
 @authentication_classes([TokenAuthentication])
 def change_password_acc(request):
+    """
+    View for changing user email and username.
+    This view handles the process of changing user email and username.
+    """
     user = request.user
     current_password = request.data.get('current_password')
     new_password = request.data.get('new_password')
@@ -259,9 +323,18 @@ def change_password_acc(request):
 
 
 class Watchlist(APIView):
+    """
+    View for managing user watchlist.
+    This view provides endpoints for adding, retrieving, and removing movies from the user's watchlist.
+    """
     permission_classes = [IsAuthenticated]
     authentication_classes = [TokenAuthentication]
     def post(self, request, *args, **kwargs):
+        """
+        Add a movie to the user's watchlist.
+        Returns:
+        - Response: JSON response indicating success or failure.
+        """
         key_to_add = request.data.get('key', None)
         if key_to_add:
             try:
@@ -280,6 +353,11 @@ class Watchlist(APIView):
             return Response({'error': 'Key not provided in the POST data'}, status=status.HTTP_400_BAD_REQUEST)
 
     def get(self, request, *args, **kwargs):
+        """
+        Retrieve movies from the user's watchlist.
+        Returns:
+        - Response: JSON response containing movie data.
+        """
         try:
             user_profile = UserProfile.objects.get(user=request.user)
         except UserProfile.DoesNotExist:
@@ -297,8 +375,12 @@ class Watchlist(APIView):
         return Response(preview_data, status=status.HTTP_200_OK)
 
     def delete(self, request, *args, **kwargs):
+        """
+        Remove a movie from the user's watchlist.
+        Returns:
+        - Response: JSON response indicating success or failure.
+        """
         key_to_delete = request.data.get('key', None)
-        print(key_to_delete)
         if key_to_delete:
             try:
                 user_profile = UserProfile.objects.get(user=request.user)
@@ -314,9 +396,3 @@ class Watchlist(APIView):
                 return Response({'error': 'Key not found in watchlist'}, status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response({'error': 'Key not provided in the DELETE data'}, status=status.HTTP_400_BAD_REQUEST)
-
-
-
-def media_123(request):
-    print('hier bin ich')
-    return HttpResponse(status=status.HTTP_200_OK)

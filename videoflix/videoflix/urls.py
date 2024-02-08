@@ -4,7 +4,7 @@ from django.contrib import admin
 from django.shortcuts import redirect
 from django.urls import include, path
 from rest_framework import routers
-from account.views import LoginView, Watchlist, UserProfileView, UserViewSet, activate, change_email_and_username, change_password, change_password_acc, check_token, delete_current_user,register, reset_password, media_123
+from account.views import LoginView, Watchlist, UserProfileView, UserViewSet, activate, change_email_and_username, change_password, change_password_acc, check_token, delete_current_user,register, reset_password
 from django.conf.urls.static import static
 from storage.views import CheckWatchlist, DeleteMovie, MovieView, PreviewSerializer, CreateMovie, UploadMovie
 from django.urls import reverse_lazy
@@ -39,9 +39,6 @@ urlpatterns = [
     path('delete_movie/', DeleteMovie.as_view(), name='delete_movie'),
     path("__debug__/", include("debug_toolbar.urls")),
     path('django-rq/', include('django_rq.urls')),
-    path('serve-protected-media/', media_123, name='serve_protected_media'),
-    #path('media/<path:path>', login_required(serve, login_url=reverse_lazy('redirect_to_login')), {'document_root': settings.MEDIA_ROOT}),
-    #re_path(r'^media/(?P<path>.*)$', serve_protected_media),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += router.urls

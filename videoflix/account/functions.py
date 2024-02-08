@@ -9,9 +9,15 @@ from django.contrib.auth.models import User
 from rest_framework import status
 import os
 
-
-# Create confirmation email
 def createMailActivateAccount(request,user):
+    """
+    Create confirmation email for account activation.
+    Args:
+        request: The HTTP request.
+        user (User): The user object for whom the activation email is being created.
+    Returns:
+        EmailMessage: An email message object for account activation.
+    """
     current_site = get_current_site(request)
     subject = 'Activate your account for Videofilx'
     message = render_to_string('registration_confirmation_email.html', {
@@ -23,6 +29,14 @@ def createMailActivateAccount(request,user):
     return email
 
 def createMailNewAccount(request,user):
+    """
+    Create notification email for a new user registration.
+    Args:
+        request: The HTTP request.
+        user (User): The user object for whom the notification email is being created.
+    Returns:
+        EmailMessage: An email message object for new user notification.
+    """
     subject = 'New user for Videoflix'
     message = render_to_string('new_user.html', {
         'user': user,
@@ -33,6 +47,14 @@ def createMailNewAccount(request,user):
 
 
 def createMailDeleteAccount(request,user):
+    """
+    Create notification email for account deletion.
+    Args:
+        request: The HTTP request.
+        user (User): The user object for whom the notification email is being created.
+    Returns:
+        EmailMessage: An email message object for account deletion notification.
+    """
     subject = 'Deletet Account from Videoflix'
     message = render_to_string('delete_acc.html', {
         'user': user,
@@ -42,6 +64,13 @@ def createMailDeleteAccount(request,user):
     return email
 
 def check_token_in_database(token):
+    """
+    Check if the token exists in the database.
+    Args:
+        token (str): The token to check.
+    Returns:
+        bool: True if the token exists in the database, False otherwise.
+    """
     try:
         token_obj = Token.objects.get(key=token)
         return True  # Token gefunden
@@ -49,6 +78,14 @@ def check_token_in_database(token):
         return False  # Token nicht gefunden
 
 def handle_uploaded_avatar(user_profile, avatar_file):
+    """
+    Handle the upload of user avatars.
+    Args:
+        user_profile (UserProfile): The user profile object.
+        avatar_file (File): The uploaded avatar file.
+    Returns:
+        dict: A dictionary containing a message and status code indicating the result of the avatar upload.
+    """
     allowed_extensions = ['.png', '.jpg']
     max_file_size = 2 * 1024 * 1024  # 2 MB
     _, file_extension = os.path.splitext(avatar_file.name)
