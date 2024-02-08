@@ -16,7 +16,7 @@ def convert_480p(instance):
     source_name = os.path.splitext(instance.video.path)[0]
     video_name = os.path.splitext(instance.video.name)[0]
     target_video = source_name + timestamp + '_480p.mp4'
-    subprocess.run(['/usr/bin/ffmpeg', '-i', instance.video.path, '-s', 'hd720', '-c:v', 'libx264', '-crf', '23', '-c:a', 'aac', '-strict','-aspect ASPECT', '-2',  target_video])
+    subprocess.run(['/usr/bin/ffmpeg', '-i', instance.video.path, '-s', 'hd720', '-c:v', 'libx264', '-crf', '23', '-c:a', 'aac', '-strict', '-2',  target_video])
     #cmd = 'ffmpeg -i "{}" -s hd720 -c:v libx264 -crf 23 -c:a aac -strict -2 "{}"'.format(instance.video.path, target)
     #subprocess.run(cmd)
     os.remove(instance.video.path)
