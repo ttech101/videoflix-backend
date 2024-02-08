@@ -28,12 +28,12 @@ SECRET_KEY = 'N(!ynBBNHqm|k+zo"?9>C~sg:)1ndNRp^o0.{-5w?NC6ZBpoM~-OiFEY%0u;MG'
 DEBUG = False
 
 ALLOWED_HOSTS = ['videoflix-backend.tech-mail.eu','videoflix.tech-mail.eu','127.0.0.1','.tech-mail.eu']
-# CORS_ALLOWED_ORIGINS = [
-#     "https://videoflix.tech-mail.eu",
-#     "https://videoflix-backend.tech-mail.eu",
-#     "http://127.0.0.1",
-#     "http://127.0.0.1:8000",
-# ]
+CORS_ALLOWED_ORIGINS = [
+     "https://videoflix.tech-mail.eu",
+     "https://videoflix-backend.tech-mail.eu",
+     "http://127.0.0.1",
+     "http://127.0.0.1:8000",
+]
 
 CORS_ORIGIN_ALLOW_ALL = False
 #CORS_ALLOW_CREDENTIALS = True
