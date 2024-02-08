@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>storage.migrations package &mdash; Videoflix  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Videoflix
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">storage.migrations package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#storage-migrations-0001-initial-module">storage.migrations.0001_initial module</a></li>
+<li><a class="reference internal" href="#module-storage.migrations.0002_uploadmovie_big_picture_uploadmovie_cover_and_more">storage.migrations.0002_uploadmovie_big_picture_uploadmovie_cover_and_more module</a><ul>
+<li><a class="reference internal" href="#storage.migrations.0002_uploadmovie_big_picture_uploadmovie_cover_and_more.Migration"><code class="docutils literal notranslate"><span class="pre">Migration</span></code></a><ul>
+<li><a class="reference internal" href="#storage.migrations.0002_uploadmovie_big_picture_uploadmovie_cover_and_more.Migration.dependencies"><code class="docutils literal notranslate"><span class="pre">Migration.dependencies</span></code></a></li>
+<li><a class="reference internal" href="#storage.migrations.0002_uploadmovie_big_picture_uploadmovie_cover_and_more.Migration.operations"><code class="docutils literal notranslate"><span class="pre">Migration.operations</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-storage.migrations.0003_alter_uploadmovie_key">storage.migrations.0003_alter_uploadmovie_key module</a><ul>
+<li><a class="reference internal" href="#storage.migrations.0003_alter_uploadmovie_key.Migration"><code class="docutils literal notranslate"><span class="pre">Migration</span></code></a><ul>
+<li><a class="reference internal" href="#storage.migrations.0003_alter_uploadmovie_key.Migration.dependencies"><code class="docutils literal notranslate"><span class="pre">Migration.dependencies</span></code></a></li>
+<li><a class="reference internal" href="#storage.migrations.0003_alter_uploadmovie_key.Migration.operations"><code class="docutils literal notranslate"><span class="pre">Migration.operations</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-storage.migrations.0004_rename_key_uploadmovie_random_key">storage.migrations.0004_rename_key_uploadmovie_random_key module</a><ul>
+<li><a class="reference internal" href="#storage.migrations.0004_rename_key_uploadmovie_random_key.Migration"><code class="docutils literal notranslate"><span class="pre">Migration</span></code></a><ul>
+<li><a class="reference internal" href="#storage.migrations.0004_rename_key_uploadmovie_random_key.Migration.dependencies"><code class="docutils literal notranslate"><span class="pre">Migration.dependencies</span></code></a></li>
+<li><a class="reference internal" href="#storage.migrations.0004_rename_key_uploadmovie_random_key.Migration.operations"><code class="docutils literal notranslate"><span class="pre">Migration.operations</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#storage-migrations-0005-alter-uploadmovie-user-module">storage.migrations.0005_alter_uploadmovie_user module</a></li>
+<li><a class="reference internal" href="#storage-migrations-0006-alter-uploadmovie-user-module">storage.migrations.0006_alter_uploadmovie_user module</a></li>
+<li><a class="reference internal" href="#module-storage.migrations.0007_uploadmovie_genre">storage.migrations.0007_uploadmovie_genre module</a><ul>
+<li><a class="reference internal" href="#storage.migrations.0007_uploadmovie_genre.Migration"><code class="docutils literal notranslate"><span class="pre">Migration</span></code></a><ul>
+<li><a class="reference internal" href="#storage.migrations.0007_uploadmovie_genre.Migration.dependencies"><code class="docutils literal notranslate"><span class="pre">Migration.dependencies</span></code></a></li>
+<li><a class="reference internal" href="#storage.migrations.0007_uploadmovie_genre.Migration.operations"><code class="docutils literal notranslate"><span class="pre">Migration.operations</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-storage.migrations.0008_alter_uploadmovie_date_from">storage.migrations.0008_alter_uploadmovie_date_from module</a><ul>
+<li><a class="reference internal" href="#storage.migrations.0008_alter_uploadmovie_date_from.Migration"><code class="docutils literal notranslate"><span class="pre">Migration</span></code></a><ul>
+<li><a class="reference internal" href="#storage.migrations.0008_alter_uploadmovie_date_from.Migration.dependencies"><code class="docutils literal notranslate"><span class="pre">Migration.dependencies</span></code></a></li>
+<li><a class="reference internal" href="#storage.migrations.0008_alter_uploadmovie_date_from.Migration.operations"><code class="docutils literal notranslate"><span class="pre">Migration.operations</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-storage.migrations.0009_alter_uploadmovie_date_from">storage.migrations.0009_alter_uploadmovie_date_from module</a><ul>
+<li><a class="reference internal" href="#storage.migrations.0009_alter_uploadmovie_date_from.Migration"><code class="docutils literal notranslate"><span class="pre">Migration</span></code></a><ul>
+<li><a class="reference internal" href="#storage.migrations.0009_alter_uploadmovie_date_from.Migration.dependencies"><code class="docutils literal notranslate"><span class="pre">Migration.dependencies</span></code></a></li>
+<li><a class="reference internal" href="#storage.migrations.0009_alter_uploadmovie_date_from.Migration.operations"><code class="docutils literal notranslate"><span class="pre">Migration.operations</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-storage.migrations.0010_uploadmovie_automatic_cover_and_more">storage.migrations.0010_uploadmovie_automatic_cover_and_more module</a><ul>
+<li><a class="reference internal" href="#storage.migrations.0010_uploadmovie_automatic_cover_and_more.Migration"><code class="docutils literal notranslate"><span class="pre">Migration</span></code></a><ul>
+<li><a class="reference internal" href="#storage.migrations.0010_uploadmovie_automatic_cover_and_more.Migration.dependencies"><code class="docutils literal notranslate"><span class="pre">Migration.dependencies</span></code></a></li>
+<li><a class="reference internal" href="#storage.migrations.0010_uploadmovie_automatic_cover_and_more.Migration.operations"><code class="docutils literal notranslate"><span class="pre">Migration.operations</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-storage.migrations.0011_uploadmovie_convert_running">storage.migrations.0011_uploadmovie_convert_running module</a><ul>
+<li><a class="reference internal" href="#storage.migrations.0011_uploadmovie_convert_running.Migration"><code class="docutils literal notranslate"><span class="pre">Migration</span></code></a><ul>
+<li><a class="reference internal" href="#storage.migrations.0011_uploadmovie_convert_running.Migration.dependencies"><code class="docutils literal notranslate"><span class="pre">Migration.dependencies</span></code></a></li>
+<li><a class="reference internal" href="#storage.migrations.0011_uploadmovie_convert_running.Migration.operations"><code class="docutils literal notranslate"><span class="pre">Migration.operations</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-storage.migrations.0012_remove_uploadmovie_convert_running_and_more">storage.migrations.0012_remove_uploadmovie_convert_running_and_more module</a><ul>
+<li><a class="reference internal" href="#storage.migrations.0012_remove_uploadmovie_convert_running_and_more.Migration"><code class="docutils literal notranslate"><span class="pre">Migration</span></code></a><ul>
+<li><a class="reference internal" href="#storage.migrations.0012_remove_uploadmovie_convert_running_and_more.Migration.dependencies"><code class="docutils literal notranslate"><span class="pre">Migration.dependencies</span></code></a></li>
+<li><a class="reference internal" href="#storage.migrations.0012_remove_uploadmovie_convert_running_and_more.Migration.operations"><code class="docutils literal notranslate"><span class="pre">Migration.operations</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-storage.migrations.0013_alter_uploadmovie_cover">storage.migrations.0013_alter_uploadmovie_cover module</a><ul>
+<li><a class="reference internal" href="#storage.migrations.0013_alter_uploadmovie_cover.Migration"><code class="docutils literal notranslate"><span class="pre">Migration</span></code></a><ul>
+<li><a class="reference internal" href="#storage.migrations.0013_alter_uploadmovie_cover.Migration.dependencies"><code class="docutils literal notranslate"><span class="pre">Migration.dependencies</span></code></a></li>
+<li><a class="reference internal" href="#storage.migrations.0013_alter_uploadmovie_cover.Migration.operations"><code class="docutils literal notranslate"><span class="pre">Migration.operations</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-storage.migrations">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Videoflix</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">storage.migrations package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/storage.migrations.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="storage-migrations-package">
+<h1>storage.migrations package<a class="headerlink" href="#storage-migrations-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="storage-migrations-0001-initial-module">
+<h2>storage.migrations.0001_initial module<a class="headerlink" href="#storage-migrations-0001-initial-module" title="Link to this heading"></a></h2>
+</section>
+<section id="module-storage.migrations.0002_uploadmovie_big_picture_uploadmovie_cover_and_more">
+<span id="storage-migrations-0002-uploadmovie-big-picture-uploadmovie-cover-and-more-module"></span><h2>storage.migrations.0002_uploadmovie_big_picture_uploadmovie_cover_and_more module<a class="headerlink" href="#module-storage.migrations.0002_uploadmovie_big_picture_uploadmovie_cover_and_more" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="storage.migrations.0002_uploadmovie_big_picture_uploadmovie_cover_and_more.Migration">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">storage.migrations.0002_uploadmovie_big_picture_uploadmovie_cover_and_more.</span></span><span class="sig-name descname"><span class="pre">Migration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_label</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#storage.migrations.0002_uploadmovie_big_picture_uploadmovie_cover_and_more.Migration" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Migration</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="storage.migrations.0002_uploadmovie_big_picture_uploadmovie_cover_and_more.Migration.dependencies">
+<span class="sig-name descname"><span class="pre">dependencies</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[('storage',</span> <span class="pre">'0001_initial')]</span></em><a class="headerlink" href="#storage.migrations.0002_uploadmovie_big_picture_uploadmovie_cover_and_more.Migration.dependencies" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="storage.migrations.0002_uploadmovie_big_picture_uploadmovie_cover_and_more.Migration.operations">
+<span class="sig-name descname"><span class="pre">operations</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;AddField</span>&#160; <span class="pre">model_name='uploadmovie',</span> <span class="pre">name='big_picture',</span> <span class="pre">field=&lt;django.db.models.fields.files.ImageField&gt;&gt;,</span> <span class="pre">&lt;AddField</span>&#160; <span class="pre">model_name='uploadmovie',</span> <span class="pre">name='cover',</span> <span class="pre">field=&lt;django.db.models.fields.files.ImageField&gt;&gt;,</span> <span class="pre">&lt;AddField</span>&#160; <span class="pre">model_name='uploadmovie',</span> <span class="pre">name='key',</span> <span class="pre">field=&lt;django.db.models.fields.CharField&gt;&gt;,</span> <span class="pre">&lt;AddField</span>&#160; <span class="pre">model_name='uploadmovie',</span> <span class="pre">name='video',</span> <span class="pre">field=&lt;django.db.models.fields.files.FileField&gt;&gt;]</span></em><a class="headerlink" href="#storage.migrations.0002_uploadmovie_big_picture_uploadmovie_cover_and_more.Migration.operations" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-storage.migrations.0003_alter_uploadmovie_key">
+<span id="storage-migrations-0003-alter-uploadmovie-key-module"></span><h2>storage.migrations.0003_alter_uploadmovie_key module<a class="headerlink" href="#module-storage.migrations.0003_alter_uploadmovie_key" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="storage.migrations.0003_alter_uploadmovie_key.Migration">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">storage.migrations.0003_alter_uploadmovie_key.</span></span><span class="sig-name descname"><span class="pre">Migration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_label</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#storage.migrations.0003_alter_uploadmovie_key.Migration" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Migration</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="storage.migrations.0003_alter_uploadmovie_key.Migration.dependencies">
+<span class="sig-name descname"><span class="pre">dependencies</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[('storage',</span> <span class="pre">'0002_uploadmovie_big_picture_uploadmovie_cover_and_more')]</span></em><a class="headerlink" href="#storage.migrations.0003_alter_uploadmovie_key.Migration.dependencies" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="storage.migrations.0003_alter_uploadmovie_key.Migration.operations">
+<span class="sig-name descname"><span class="pre">operations</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;AlterField</span>&#160; <span class="pre">model_name='uploadmovie',</span> <span class="pre">name='key',</span> <span class="pre">field=&lt;django.db.models.fields.UUIDField&gt;&gt;]</span></em><a class="headerlink" href="#storage.migrations.0003_alter_uploadmovie_key.Migration.operations" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-storage.migrations.0004_rename_key_uploadmovie_random_key">
+<span id="storage-migrations-0004-rename-key-uploadmovie-random-key-module"></span><h2>storage.migrations.0004_rename_key_uploadmovie_random_key module<a class="headerlink" href="#module-storage.migrations.0004_rename_key_uploadmovie_random_key" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="storage.migrations.0004_rename_key_uploadmovie_random_key.Migration">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">storage.migrations.0004_rename_key_uploadmovie_random_key.</span></span><span class="sig-name descname"><span class="pre">Migration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_label</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#storage.migrations.0004_rename_key_uploadmovie_random_key.Migration" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Migration</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="storage.migrations.0004_rename_key_uploadmovie_random_key.Migration.dependencies">
+<span class="sig-name descname"><span class="pre">dependencies</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[('storage',</span> <span class="pre">'0003_alter_uploadmovie_key')]</span></em><a class="headerlink" href="#storage.migrations.0004_rename_key_uploadmovie_random_key.Migration.dependencies" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="storage.migrations.0004_rename_key_uploadmovie_random_key.Migration.operations">
+<span class="sig-name descname"><span class="pre">operations</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;RenameField</span>&#160; <span class="pre">model_name='uploadmovie',</span> <span class="pre">old_name='key',</span> <span class="pre">new_name='random_key'&gt;]</span></em><a class="headerlink" href="#storage.migrations.0004_rename_key_uploadmovie_random_key.Migration.operations" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="storage-migrations-0005-alter-uploadmovie-user-module">
+<h2>storage.migrations.0005_alter_uploadmovie_user module<a class="headerlink" href="#storage-migrations-0005-alter-uploadmovie-user-module" title="Link to this heading"></a></h2>
+</section>
+<section id="storage-migrations-0006-alter-uploadmovie-user-module">
+<h2>storage.migrations.0006_alter_uploadmovie_user module<a class="headerlink" href="#storage-migrations-0006-alter-uploadmovie-user-module" title="Link to this heading"></a></h2>
+</section>
+<section id="module-storage.migrations.0007_uploadmovie_genre">
+<span id="storage-migrations-0007-uploadmovie-genre-module"></span><h2>storage.migrations.0007_uploadmovie_genre module<a class="headerlink" href="#module-storage.migrations.0007_uploadmovie_genre" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="storage.migrations.0007_uploadmovie_genre.Migration">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">storage.migrations.0007_uploadmovie_genre.</span></span><span class="sig-name descname"><span class="pre">Migration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_label</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#storage.migrations.0007_uploadmovie_genre.Migration" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Migration</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="storage.migrations.0007_uploadmovie_genre.Migration.dependencies">
+<span class="sig-name descname"><span class="pre">dependencies</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[('storage',</span> <span class="pre">'0006_alter_uploadmovie_user')]</span></em><a class="headerlink" href="#storage.migrations.0007_uploadmovie_genre.Migration.dependencies" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="storage.migrations.0007_uploadmovie_genre.Migration.operations">
+<span class="sig-name descname"><span class="pre">operations</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;AddField</span>&#160; <span class="pre">model_name='uploadmovie',</span> <span class="pre">name='genre',</span> <span class="pre">field=&lt;django.db.models.fields.CharField&gt;&gt;]</span></em><a class="headerlink" href="#storage.migrations.0007_uploadmovie_genre.Migration.operations" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-storage.migrations.0008_alter_uploadmovie_date_from">
+<span id="storage-migrations-0008-alter-uploadmovie-date-from-module"></span><h2>storage.migrations.0008_alter_uploadmovie_date_from module<a class="headerlink" href="#module-storage.migrations.0008_alter_uploadmovie_date_from" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="storage.migrations.0008_alter_uploadmovie_date_from.Migration">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">storage.migrations.0008_alter_uploadmovie_date_from.</span></span><span class="sig-name descname"><span class="pre">Migration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_label</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#storage.migrations.0008_alter_uploadmovie_date_from.Migration" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Migration</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="storage.migrations.0008_alter_uploadmovie_date_from.Migration.dependencies">
+<span class="sig-name descname"><span class="pre">dependencies</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[('storage',</span> <span class="pre">'0007_uploadmovie_genre')]</span></em><a class="headerlink" href="#storage.migrations.0008_alter_uploadmovie_date_from.Migration.dependencies" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="storage.migrations.0008_alter_uploadmovie_date_from.Migration.operations">
+<span class="sig-name descname"><span class="pre">operations</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;AlterField</span>&#160; <span class="pre">model_name='uploadmovie',</span> <span class="pre">name='date_from',</span> <span class="pre">field=&lt;django.db.models.fields.DateField&gt;&gt;]</span></em><a class="headerlink" href="#storage.migrations.0008_alter_uploadmovie_date_from.Migration.operations" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-storage.migrations.0009_alter_uploadmovie_date_from">
+<span id="storage-migrations-0009-alter-uploadmovie-date-from-module"></span><h2>storage.migrations.0009_alter_uploadmovie_date_from module<a class="headerlink" href="#module-storage.migrations.0009_alter_uploadmovie_date_from" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="storage.migrations.0009_alter_uploadmovie_date_from.Migration">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">storage.migrations.0009_alter_uploadmovie_date_from.</span></span><span class="sig-name descname"><span class="pre">Migration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_label</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#storage.migrations.0009_alter_uploadmovie_date_from.Migration" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Migration</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="storage.migrations.0009_alter_uploadmovie_date_from.Migration.dependencies">
+<span class="sig-name descname"><span class="pre">dependencies</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[('storage',</span> <span class="pre">'0008_alter_uploadmovie_date_from')]</span></em><a class="headerlink" href="#storage.migrations.0009_alter_uploadmovie_date_from.Migration.dependencies" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="storage.migrations.0009_alter_uploadmovie_date_from.Migration.operations">
+<span class="sig-name descname"><span class="pre">operations</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;AlterField</span>&#160; <span class="pre">model_name='uploadmovie',</span> <span class="pre">name='date_from',</span> <span class="pre">field=&lt;django.db.models.fields.DateField&gt;&gt;]</span></em><a class="headerlink" href="#storage.migrations.0009_alter_uploadmovie_date_from.Migration.operations" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-storage.migrations.0010_uploadmovie_automatic_cover_and_more">
+<span id="storage-migrations-0010-uploadmovie-automatic-cover-and-more-module"></span><h2>storage.migrations.0010_uploadmovie_automatic_cover_and_more module<a class="headerlink" href="#module-storage.migrations.0010_uploadmovie_automatic_cover_and_more" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="storage.migrations.0010_uploadmovie_automatic_cover_and_more.Migration">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">storage.migrations.0010_uploadmovie_automatic_cover_and_more.</span></span><span class="sig-name descname"><span class="pre">Migration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_label</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#storage.migrations.0010_uploadmovie_automatic_cover_and_more.Migration" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Migration</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="storage.migrations.0010_uploadmovie_automatic_cover_and_more.Migration.dependencies">
+<span class="sig-name descname"><span class="pre">dependencies</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[('storage',</span> <span class="pre">'0009_alter_uploadmovie_date_from')]</span></em><a class="headerlink" href="#storage.migrations.0010_uploadmovie_automatic_cover_and_more.Migration.dependencies" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="storage.migrations.0010_uploadmovie_automatic_cover_and_more.Migration.operations">
+<span class="sig-name descname"><span class="pre">operations</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;AddField</span>&#160; <span class="pre">model_name='uploadmovie',</span> <span class="pre">name='automatic_cover',</span> <span class="pre">field=&lt;django.db.models.fields.BooleanField&gt;&gt;,</span> <span class="pre">&lt;AddField</span>&#160; <span class="pre">model_name='uploadmovie',</span> <span class="pre">name='automatic_image',</span> <span class="pre">field=&lt;django.db.models.fields.BooleanField&gt;&gt;]</span></em><a class="headerlink" href="#storage.migrations.0010_uploadmovie_automatic_cover_and_more.Migration.operations" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-storage.migrations.0011_uploadmovie_convert_running">
+<span id="storage-migrations-0011-uploadmovie-convert-running-module"></span><h2>storage.migrations.0011_uploadmovie_convert_running module<a class="headerlink" href="#module-storage.migrations.0011_uploadmovie_convert_running" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="storage.migrations.0011_uploadmovie_convert_running.Migration">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">storage.migrations.0011_uploadmovie_convert_running.</span></span><span class="sig-name descname"><span class="pre">Migration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_label</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#storage.migrations.0011_uploadmovie_convert_running.Migration" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Migration</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="storage.migrations.0011_uploadmovie_convert_running.Migration.dependencies">
+<span class="sig-name descname"><span class="pre">dependencies</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[('storage',</span> <span class="pre">'0010_uploadmovie_automatic_cover_and_more')]</span></em><a class="headerlink" href="#storage.migrations.0011_uploadmovie_convert_running.Migration.dependencies" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="storage.migrations.0011_uploadmovie_convert_running.Migration.operations">
+<span class="sig-name descname"><span class="pre">operations</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;AddField</span>&#160; <span class="pre">model_name='uploadmovie',</span> <span class="pre">name='convert_running',</span> <span class="pre">field=&lt;django.db.models.fields.BooleanField&gt;&gt;]</span></em><a class="headerlink" href="#storage.migrations.0011_uploadmovie_convert_running.Migration.operations" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-storage.migrations.0012_remove_uploadmovie_convert_running_and_more">
+<span id="storage-migrations-0012-remove-uploadmovie-convert-running-and-more-module"></span><h2>storage.migrations.0012_remove_uploadmovie_convert_running_and_more module<a class="headerlink" href="#module-storage.migrations.0012_remove_uploadmovie_convert_running_and_more" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="storage.migrations.0012_remove_uploadmovie_convert_running_and_more.Migration">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">storage.migrations.0012_remove_uploadmovie_convert_running_and_more.</span></span><span class="sig-name descname"><span class="pre">Migration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_label</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#storage.migrations.0012_remove_uploadmovie_convert_running_and_more.Migration" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Migration</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="storage.migrations.0012_remove_uploadmovie_convert_running_and_more.Migration.dependencies">
+<span class="sig-name descname"><span class="pre">dependencies</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[('storage',</span> <span class="pre">'0011_uploadmovie_convert_running')]</span></em><a class="headerlink" href="#storage.migrations.0012_remove_uploadmovie_convert_running_and_more.Migration.dependencies" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="storage.migrations.0012_remove_uploadmovie_convert_running_and_more.Migration.operations">
+<span class="sig-name descname"><span class="pre">operations</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;RemoveField</span>&#160; <span class="pre">model_name='uploadmovie',</span> <span class="pre">name='convert_running'&gt;,</span> <span class="pre">&lt;AddField</span>&#160; <span class="pre">model_name='uploadmovie',</span> <span class="pre">name='convert_status',</span> <span class="pre">field=&lt;django.db.models.fields.IntegerField&gt;&gt;]</span></em><a class="headerlink" href="#storage.migrations.0012_remove_uploadmovie_convert_running_and_more.Migration.operations" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-storage.migrations.0013_alter_uploadmovie_cover">
+<span id="storage-migrations-0013-alter-uploadmovie-cover-module"></span><h2>storage.migrations.0013_alter_uploadmovie_cover module<a class="headerlink" href="#module-storage.migrations.0013_alter_uploadmovie_cover" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="storage.migrations.0013_alter_uploadmovie_cover.Migration">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">storage.migrations.0013_alter_uploadmovie_cover.</span></span><span class="sig-name descname"><span class="pre">Migration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_label</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#storage.migrations.0013_alter_uploadmovie_cover.Migration" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Migration</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="storage.migrations.0013_alter_uploadmovie_cover.Migration.dependencies">
+<span class="sig-name descname"><span class="pre">dependencies</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[('storage',</span> <span class="pre">'0012_remove_uploadmovie_convert_running_and_more')]</span></em><a class="headerlink" href="#storage.migrations.0013_alter_uploadmovie_cover.Migration.dependencies" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="storage.migrations.0013_alter_uploadmovie_cover.Migration.operations">
+<span class="sig-name descname"><span class="pre">operations</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;AlterField</span>&#160; <span class="pre">model_name='uploadmovie',</span> <span class="pre">name='cover',</span> <span class="pre">field=&lt;django.db.models.fields.files.ImageField&gt;&gt;]</span></em><a class="headerlink" href="#storage.migrations.0013_alter_uploadmovie_cover.Migration.operations" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-storage.migrations">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-storage.migrations" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Tony Tech.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

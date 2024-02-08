@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>storage package &mdash; Videoflix  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Videoflix
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">storage package</a><ul>
+<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#storage-admin-module">storage.admin module</a></li>
+<li><a class="reference internal" href="#module-storage.apps">storage.apps module</a><ul>
+<li><a class="reference internal" href="#storage.apps.StorageConfig"><code class="docutils literal notranslate"><span class="pre">StorageConfig</span></code></a><ul>
+<li><a class="reference internal" href="#storage.apps.StorageConfig.default_auto_field"><code class="docutils literal notranslate"><span class="pre">StorageConfig.default_auto_field</span></code></a></li>
+<li><a class="reference internal" href="#storage.apps.StorageConfig.name"><code class="docutils literal notranslate"><span class="pre">StorageConfig.name</span></code></a></li>
+<li><a class="reference internal" href="#storage.apps.StorageConfig.ready"><code class="docutils literal notranslate"><span class="pre">StorageConfig.ready()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#storage-models-module">storage.models module</a></li>
+<li><a class="reference internal" href="#storage-serializers-module">storage.serializers module</a></li>
+<li><a class="reference internal" href="#storage-signals-module">storage.signals module</a></li>
+<li><a class="reference internal" href="#storage-tasks-module">storage.tasks module</a></li>
+<li><a class="reference internal" href="#module-storage.tests">storage.tests module</a></li>
+<li><a class="reference internal" href="#storage-views-module">storage.views module</a></li>
+<li><a class="reference internal" href="#module-storage">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Videoflix</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">storage package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/storage.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="storage-package">
+<h1>storage package<a class="headerlink" href="#storage-package" title="Link to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="storage.migrations.html">storage.migrations package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="storage.migrations.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storage.migrations.html#storage-migrations-0001-initial-module">storage.migrations.0001_initial module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storage.migrations.html#module-storage.migrations.0002_uploadmovie_big_picture_uploadmovie_cover_and_more">storage.migrations.0002_uploadmovie_big_picture_uploadmovie_cover_and_more module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="storage.migrations.html#storage.migrations.0002_uploadmovie_big_picture_uploadmovie_cover_and_more.Migration"><code class="docutils literal notranslate"><span class="pre">Migration</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="storage.migrations.html#storage.migrations.0002_uploadmovie_big_picture_uploadmovie_cover_and_more.Migration.dependencies"><code class="docutils literal notranslate"><span class="pre">Migration.dependencies</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="storage.migrations.html#storage.migrations.0002_uploadmovie_big_picture_uploadmovie_cover_and_more.Migration.operations"><code class="docutils literal notranslate"><span class="pre">Migration.operations</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="storage.migrations.html#module-storage.migrations.0003_alter_uploadmovie_key">storage.migrations.0003_alter_uploadmovie_key module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="storage.migrations.html#storage.migrations.0003_alter_uploadmovie_key.Migration"><code class="docutils literal notranslate"><span class="pre">Migration</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="storage.migrations.html#storage.migrations.0003_alter_uploadmovie_key.Migration.dependencies"><code class="docutils literal notranslate"><span class="pre">Migration.dependencies</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="storage.migrations.html#storage.migrations.0003_alter_uploadmovie_key.Migration.operations"><code class="docutils literal notranslate"><span class="pre">Migration.operations</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="storage.migrations.html#module-storage.migrations.0004_rename_key_uploadmovie_random_key">storage.migrations.0004_rename_key_uploadmovie_random_key module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="storage.migrations.html#storage.migrations.0004_rename_key_uploadmovie_random_key.Migration"><code class="docutils literal notranslate"><span class="pre">Migration</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="storage.migrations.html#storage.migrations.0004_rename_key_uploadmovie_random_key.Migration.dependencies"><code class="docutils literal notranslate"><span class="pre">Migration.dependencies</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="storage.migrations.html#storage.migrations.0004_rename_key_uploadmovie_random_key.Migration.operations"><code class="docutils literal notranslate"><span class="pre">Migration.operations</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="storage.migrations.html#storage-migrations-0005-alter-uploadmovie-user-module">storage.migrations.0005_alter_uploadmovie_user module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storage.migrations.html#storage-migrations-0006-alter-uploadmovie-user-module">storage.migrations.0006_alter_uploadmovie_user module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storage.migrations.html#module-storage.migrations.0007_uploadmovie_genre">storage.migrations.0007_uploadmovie_genre module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="storage.migrations.html#storage.migrations.0007_uploadmovie_genre.Migration"><code class="docutils literal notranslate"><span class="pre">Migration</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="storage.migrations.html#storage.migrations.0007_uploadmovie_genre.Migration.dependencies"><code class="docutils literal notranslate"><span class="pre">Migration.dependencies</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="storage.migrations.html#storage.migrations.0007_uploadmovie_genre.Migration.operations"><code class="docutils literal notranslate"><span class="pre">Migration.operations</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="storage.migrations.html#module-storage.migrations.0008_alter_uploadmovie_date_from">storage.migrations.0008_alter_uploadmovie_date_from module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="storage.migrations.html#storage.migrations.0008_alter_uploadmovie_date_from.Migration"><code class="docutils literal notranslate"><span class="pre">Migration</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="storage.migrations.html#storage.migrations.0008_alter_uploadmovie_date_from.Migration.dependencies"><code class="docutils literal notranslate"><span class="pre">Migration.dependencies</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="storage.migrations.html#storage.migrations.0008_alter_uploadmovie_date_from.Migration.operations"><code class="docutils literal notranslate"><span class="pre">Migration.operations</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="storage.migrations.html#module-storage.migrations.0009_alter_uploadmovie_date_from">storage.migrations.0009_alter_uploadmovie_date_from module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="storage.migrations.html#storage.migrations.0009_alter_uploadmovie_date_from.Migration"><code class="docutils literal notranslate"><span class="pre">Migration</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="storage.migrations.html#storage.migrations.0009_alter_uploadmovie_date_from.Migration.dependencies"><code class="docutils literal notranslate"><span class="pre">Migration.dependencies</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="storage.migrations.html#storage.migrations.0009_alter_uploadmovie_date_from.Migration.operations"><code class="docutils literal notranslate"><span class="pre">Migration.operations</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="storage.migrations.html#module-storage.migrations.0010_uploadmovie_automatic_cover_and_more">storage.migrations.0010_uploadmovie_automatic_cover_and_more module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="storage.migrations.html#storage.migrations.0010_uploadmovie_automatic_cover_and_more.Migration"><code class="docutils literal notranslate"><span class="pre">Migration</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="storage.migrations.html#storage.migrations.0010_uploadmovie_automatic_cover_and_more.Migration.dependencies"><code class="docutils literal notranslate"><span class="pre">Migration.dependencies</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="storage.migrations.html#storage.migrations.0010_uploadmovie_automatic_cover_and_more.Migration.operations"><code class="docutils literal notranslate"><span class="pre">Migration.operations</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="storage.migrations.html#module-storage.migrations.0011_uploadmovie_convert_running">storage.migrations.0011_uploadmovie_convert_running module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="storage.migrations.html#storage.migrations.0011_uploadmovie_convert_running.Migration"><code class="docutils literal notranslate"><span class="pre">Migration</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="storage.migrations.html#storage.migrations.0011_uploadmovie_convert_running.Migration.dependencies"><code class="docutils literal notranslate"><span class="pre">Migration.dependencies</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="storage.migrations.html#storage.migrations.0011_uploadmovie_convert_running.Migration.operations"><code class="docutils literal notranslate"><span class="pre">Migration.operations</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="storage.migrations.html#module-storage.migrations.0012_remove_uploadmovie_convert_running_and_more">storage.migrations.0012_remove_uploadmovie_convert_running_and_more module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="storage.migrations.html#storage.migrations.0012_remove_uploadmovie_convert_running_and_more.Migration"><code class="docutils literal notranslate"><span class="pre">Migration</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="storage.migrations.html#storage.migrations.0012_remove_uploadmovie_convert_running_and_more.Migration.dependencies"><code class="docutils literal notranslate"><span class="pre">Migration.dependencies</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="storage.migrations.html#storage.migrations.0012_remove_uploadmovie_convert_running_and_more.Migration.operations"><code class="docutils literal notranslate"><span class="pre">Migration.operations</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="storage.migrations.html#module-storage.migrations.0013_alter_uploadmovie_cover">storage.migrations.0013_alter_uploadmovie_cover module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="storage.migrations.html#storage.migrations.0013_alter_uploadmovie_cover.Migration"><code class="docutils literal notranslate"><span class="pre">Migration</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="storage.migrations.html#storage.migrations.0013_alter_uploadmovie_cover.Migration.dependencies"><code class="docutils literal notranslate"><span class="pre">Migration.dependencies</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="storage.migrations.html#storage.migrations.0013_alter_uploadmovie_cover.Migration.operations"><code class="docutils literal notranslate"><span class="pre">Migration.operations</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="storage.migrations.html#module-storage.migrations">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="storage-admin-module">
+<h2>storage.admin module<a class="headerlink" href="#storage-admin-module" title="Link to this heading"></a></h2>
+</section>
+<section id="module-storage.apps">
+<span id="storage-apps-module"></span><h2>storage.apps module<a class="headerlink" href="#module-storage.apps" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="storage.apps.StorageConfig">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">storage.apps.</span></span><span class="sig-name descname"><span class="pre">StorageConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_module</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#storage.apps.StorageConfig" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">AppConfig</span></code></p>
+<p>AppConfig class for the ‘storage’ app.
+This class defines configuration options for the ‘storage’ app.
+Attributes:</p>
+<blockquote>
+<div><p>default_auto_field (str): The default auto field for models in this app.
+name (str): The name of the app.</p>
+</div></blockquote>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="storage.apps.StorageConfig.default_auto_field">
+<span class="sig-name descname"><span class="pre">default_auto_field</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'django.db.models.BigAutoField'</span></em><a class="headerlink" href="#storage.apps.StorageConfig.default_auto_field" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="storage.apps.StorageConfig.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'storage'</span></em><a class="headerlink" href="#storage.apps.StorageConfig.name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="storage.apps.StorageConfig.ready">
+<span class="sig-name descname"><span class="pre">ready</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#storage.apps.StorageConfig.ready" title="Link to this definition"></a></dt>
+<dd><p>Method called when the app is ready.
+This method imports signals module to ensure signal handling is set up when the app is ready.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="storage-models-module">
+<h2>storage.models module<a class="headerlink" href="#storage-models-module" title="Link to this heading"></a></h2>
+</section>
+<section id="storage-serializers-module">
+<h2>storage.serializers module<a class="headerlink" href="#storage-serializers-module" title="Link to this heading"></a></h2>
+</section>
+<section id="storage-signals-module">
+<h2>storage.signals module<a class="headerlink" href="#storage-signals-module" title="Link to this heading"></a></h2>
+</section>
+<section id="storage-tasks-module">
+<h2>storage.tasks module<a class="headerlink" href="#storage-tasks-module" title="Link to this heading"></a></h2>
+</section>
+<section id="module-storage.tests">
+<span id="storage-tests-module"></span><h2>storage.tests module<a class="headerlink" href="#module-storage.tests" title="Link to this heading"></a></h2>
+</section>
+<section id="storage-views-module">
+<h2>storage.views module<a class="headerlink" href="#storage-views-module" title="Link to this heading"></a></h2>
+</section>
+<section id="module-storage">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-storage" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Tony Tech.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
