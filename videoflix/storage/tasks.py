@@ -33,8 +33,9 @@ def convert_480p(instance):
         #cmd ='ffmpeg -i "{}" -ss "{}" -frames:v 1 -vf scale=iw/2:ih/2 "{}"'.format(instance.video.path,middle_time_str, target)
         #subprocess.run(cmd)
         print(target)
-        sliced_path = target.split("media/", 1)
-        instance.cover.name = sliced_path
+        basis_pfad = "/home/tt/projekte/videoflix-backend/videoflix/media/"
+        relativer_pfad = os.path.relpath(target, basis_pfad)
+        instance.cover.name = relativer_pfad
 
     if instance.automatic_image:
         middle_time = duration / 2
@@ -45,8 +46,9 @@ def convert_480p(instance):
         subprocess.run(['/usr/bin/ffmpeg', '-i', instance.video.path, '-ss' , middle_time_str,'-frames:v' , '1',target])
         #cmd ='ffmpeg -i "{}" -ss "{}" -frames:v 1 "{}"'.format(instance.video.path,middle_time_str, target)
         #subprocess.run(cmd)
-        sliced_path = target.split("media/", 1)
-        instance.big_picture.name = sliced_path
+        basis_pfad = "/home/tt/projekte/videoflix-backend/videoflix/media/"
+        relativer_pfad = os.path.relpath(target, basis_pfad)
+        instance.big_picture.name = relativer_pfad
 
     instance.convert_status = 2
     instance.save()
