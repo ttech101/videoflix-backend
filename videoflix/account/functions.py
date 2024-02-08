@@ -63,6 +63,23 @@ def createMailDeleteAccount(request,user):
     email.content_subtype = 'html'
     return email
 
+def createMailNewVideo(video_name):
+    """
+    Create notification new video.
+    Args:
+        request: The HTTP request.
+        user (User): The user object for whom the notification email is being created.
+    Returns:
+        EmailMessage: An email message object for new video notification.
+    """
+    subject = 'New Video for Videoflix'
+    message = render_to_string('new_video.html',{
+        'video_name': video_name,
+    })
+    email = EmailMessage(subject, message, to=['admin@tech-mail.eu'])
+    email.content_subtype = 'html'
+    return email
+
 def check_token_in_database(token):
     """
     Check if the token exists in the database.

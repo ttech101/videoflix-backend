@@ -3,6 +3,7 @@ import subprocess
 import django_rq
 from django.utils import timezone
 from storage.models import uploadMovie
+from account.functions import createMailNewVideo
 
 def convert_480p(instance):
     """
@@ -52,7 +53,10 @@ def convert_480p(instance):
         instance.big_picture.name = date_path_image
 
     instance.convert_status = 2
+    email = createMailNewVideo(instance.video.name)
+    email.send()
     instance.save()
+
 
 def get_video_duration(video_path):
     """
