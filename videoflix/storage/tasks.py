@@ -31,7 +31,8 @@ def convert_480p(instance):
         subprocess.run(['/usr/bin/ffmpeg', '-i', instance.video.path, '-ss' , middle_time_str,'-frames:v' , '1' ,'-vf', 'scale=iw/2:ih/2' ,target])
         #cmd ='ffmpeg -i "{}" -ss "{}" -frames:v 1 -vf scale=iw/2:ih/2 "{}"'.format(instance.video.path,middle_time_str, target)
         #subprocess.run(cmd)
-        sliced_path = target.split("media/", 1)
+        print(target)
+        sliced_path = target.split("media//", 1)
         instance.cover.name = sliced_path
 
     if instance.automatic_image:
