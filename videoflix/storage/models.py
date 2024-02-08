@@ -56,7 +56,7 @@ class uploadMovie(models.Model):
     other_check = models.BooleanField(default=False)
     age_rating = models.PositiveIntegerField(default=0)
     upload_visible_check = models.BooleanField(default=False)
-    cover = models.ImageField(upload_to='cover/', default='static/load-142_256.gif')
+    cover = models.ImageField(upload_to='cover/', default='static/load-142_256.gif',null=True, blank=True)
     big_picture = models.ImageField(upload_to='big_picture/', null=True, blank=True)
     video = models.FileField(upload_to='video/', null=True, blank=True)
     random_key  = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
