@@ -33,7 +33,7 @@ class uploadMovie(models.Model):
     random_key  = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     automatic_cover = models.BooleanField(default=False)
     automatic_image = models.BooleanField(default=False)
-    convert_running = models.BooleanField(default=False)
+    convert_status = models.IntegerField(default=0)
 
 
     def save(self, *args, **kwargs):

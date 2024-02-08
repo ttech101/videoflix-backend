@@ -61,25 +61,25 @@ class PreviewSerializer(viewsets.ModelViewSet):
         age_rating_user = user.userprofile.age_rating
         select = self.request.query_params.get('select', None)
         if select == 'newHeader':
-            return uploadMovie.objects.filter( upload_visible_check=True, age_rating__lte=age_rating_user).order_by('-created_at')[:3]
+            return uploadMovie.objects.filter( upload_visible_check=True, age_rating__lte=age_rating_user,convert_status=2).order_by('-created_at')[:3]
         if select == 'new':
-            return uploadMovie.objects.filter( upload_visible_check=True, age_rating__lte=age_rating_user).order_by('-created_at')[:20]
+            return uploadMovie.objects.filter( upload_visible_check=True, age_rating__lte=age_rating_user,convert_status=2).order_by('-created_at')[:20]
         if select == 'other':
-            return uploadMovie.objects.filter(other_check=True, upload_visible_check=True, age_rating__lte=age_rating_user)[:20]
+            return uploadMovie.objects.filter(other_check=True, upload_visible_check=True, age_rating__lte=age_rating_user,convert_status=2)[:20]
         if select == 'nature':
-            return uploadMovie.objects.filter(nature_check=True, upload_visible_check=True, age_rating__lte=age_rating_user)[:20]
+            return uploadMovie.objects.filter(nature_check=True, upload_visible_check=True, age_rating__lte=age_rating_user,convert_status=2)[:20]
         if select == 'funny':
-            return uploadMovie.objects.filter(funny_check=True, upload_visible_check=True, age_rating__lte=age_rating_user)[:20]
+            return uploadMovie.objects.filter(funny_check=True, upload_visible_check=True, age_rating__lte=age_rating_user,convert_status=2)[:20]
         if select == 'knowledge':
-            return uploadMovie.objects.filter(knowledge_check=True, upload_visible_check=True, age_rating__lte=age_rating_user)[:20]
+            return uploadMovie.objects.filter(knowledge_check=True, upload_visible_check=True, age_rating__lte=age_rating_user,convert_status=2)[:20]
         if select == 'movie':
-            return uploadMovie.objects.filter(movie_check=True, upload_visible_check=True, age_rating__lte=age_rating_user)[:20]
+            return uploadMovie.objects.filter(movie_check=True, upload_visible_check=True, age_rating__lte=age_rating_user,convert_status=2)[:20]
         if select == 'serie':
-            return uploadMovie.objects.filter(short_movie_check=True, upload_visible_check=True, age_rating__lte=age_rating_user)[:20]
+            return uploadMovie.objects.filter(short_movie_check=True, upload_visible_check=True, age_rating__lte=age_rating_user,convert_status=2)[:20]
         if select == 'my':
-            return uploadMovie.objects.filter(user=self.request.user)[:20]
+            return uploadMovie.objects.filter(user=self.request.user,convert_status__gte=1)[:20]
         if select == 'all':
-            return uploadMovie.objects.filter(upload_visible_check=True, age_rating__lte=age_rating_user)[:20]
+            return uploadMovie.objects.filter(upload_visible_check=True, age_rating__lte=age_rating_user,convert_status=2)[:20]
 
 
 class CreateMovie(APIView):

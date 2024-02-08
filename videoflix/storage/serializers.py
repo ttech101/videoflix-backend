@@ -6,7 +6,7 @@ from storage.models import uploadMovie
 class PreviewSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = uploadMovie
-        fields = ['created_at','movie_name','cover','description_short','big_picture','random_key','genre']
+        fields = ['created_at','movie_name','cover','description_short','big_picture','random_key','genre','convert_status']
 
 class MovieSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
