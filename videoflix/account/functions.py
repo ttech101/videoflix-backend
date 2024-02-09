@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes, force_str
@@ -77,6 +78,26 @@ def createMailNewVideo(video_name):
         'video_name': video_name,
     })
     email = EmailMessage(subject, message, to=['admin@tech-mail.eu'])
+    email.content_subtype = 'html'
+    return email
+
+def createMailNewVideoConvert(video_name,email,user_name,random_key):
+    """
+    Create notification convert video.
+    Args:
+        request: The HTTP request.
+        user (User): The user object for whom the notification email is being convert.
+    Returns:
+        EmailMessage: An email message object for convert video notification.
+    """
+    subject = 'Successfully converted'
+    video_link = f"{settings.FRONTEND_URL}/single-view?select={random_key}"
+    message = render_to_string('convert_reday.html',{
+        'video_name': video_name,
+        'user_name': user_name,
+        'video_link': video_link,
+    })
+    email = EmailMessage(subject, message, to=[email])
     email.content_subtype = 'html'
     return email
 

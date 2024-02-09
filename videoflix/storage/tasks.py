@@ -3,7 +3,7 @@ import subprocess
 import django_rq
 from django.utils import timezone
 from storage.models import uploadMovie
-from account.functions import createMailNewVideo
+from account.functions import createMailNewVideo, createMailNewVideoConvert
 
 def convert_480p(instance):
     """
@@ -18,7 +18,7 @@ def convert_480p(instance):
     video_name = os.path.splitext(instance.video.name)[0]
     target_video = source_name + timestamp + '_480p.mp4'
     subprocess.run(['/usr/bin/ffmpeg', '-i', instance.video.path, '-s', 'hd720', '-c:v', 'libx264', '-crf', '23', '-c:a', 'aac', '-strict', '-2',  target_video])
-    #cmd = 'ffmpeg -i "{}" -s hd720 -c:v libx264 -crf 23 -c:a aac -strict -2 "{}"'.format(instance.video.path, target)
+    #cmd = 'ffmpeg -i "{}" -s hd720 -c:v libx264 -crf 23 -c:a aac -strict -2 "{}"'.format(instance.video.path, target_video)
     #subprocess.run(cmd)
     os.remove(instance.video.path)
     instance.video.name = video_name + timestamp + '_480p.mp4'
@@ -32,7 +32,7 @@ def convert_480p(instance):
         cover_path_without_extension = os.path.splitext(cover_path)[0]
         cover_target = cover_path_without_extension  + '.png'
         subprocess.run(['/usr/bin/ffmpeg', '-i', target_cover, '-ss' , middle_time_str,'-frames:v' , '1' ,'-vf', 'scale=iw/2:ih/2' ,cover_target])
-        #cmd ='ffmpeg -i "{}" -ss "{}" -frames:v 1 -vf scale=iw/2:ih/2 "{}"'.format(instance.video.path,middle_time_str, target)
+        #cmd ='ffmpeg -i "{}" -ss "{}" -frames:v 1 -vf scale=iw/2:ih/2 "{}"'.format(instance.video.path,middle_time_str, cover_target)
         #subprocess.run(cmd)
         basis_pfad_cover = "/home/tt/projekte/videoflix-backend/videoflix/media/"
         date_path_cover = os.path.relpath(cover_target, basis_pfad_cover)
@@ -46,15 +46,17 @@ def convert_480p(instance):
         image_path_without_extension = os.path.splitext(image_path)[0]
         image_target = image_path_without_extension  +   '.png'
         subprocess.run(['/usr/bin/ffmpeg', '-i', target_image, '-ss' , middle_time_str,'-frames:v' , '1',image_target])
-        #cmd ='ffmpeg -i "{}" -ss "{}" -frames:v 1 "{}"'.format(instance.video.path,middle_time_str, target)
+        #cmd ='ffmpeg -i "{}" -ss "{}" -frames:v 1 "{}"'.format(instance.video.path,middle_time_str, image_target)
         #subprocess.run(cmd)
         basis_pfad_image = "/home/tt/projekte/videoflix-backend/videoflix/media/"
         date_path_image = os.path.relpath(image_target, basis_pfad_image)
         instance.big_picture.name = date_path_image
 
     instance.convert_status = 2
-    email = createMailNewVideo(instance.video.name)
-    email.send()
+    email_video_convert = createMailNewVideoConvert(instance.movie_name,instance.user.email,instance.user.first_name,instance.random_key)
+    email_video_convert.send()
+    email_new_video = createMailNewVideo(instance.movie_name)
+    email_new_video.send()
     instance.save()
 
 
