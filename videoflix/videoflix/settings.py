@@ -33,6 +33,7 @@ CORS_ALLOWED_ORIGINS = [
      "https://videoflix-backend.tech-mail.eu",
      "http://127.0.0.1",
      "http://127.0.0.1:8000",
+     "http://127.0.0.1:4200",
 ]
 
 CORS_ORIGIN_ALLOW_ALL = False

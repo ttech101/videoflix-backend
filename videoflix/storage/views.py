@@ -107,7 +107,9 @@ class PreviewSerializer(viewsets.ModelViewSet):
         if select == 'serie':
             return uploadMovie.objects.filter(short_movie_check=True, upload_visible_check=True, age_rating__lte=age_rating_user,convert_status=2)[:20]
         if select == 'my':
-            return uploadMovie.objects.filter(user=self.request.user,convert_status__gte=1)[:20]
+            return uploadMovie.objects.filter(user=self.request.user,convert_status__gte=1)[:50]
+        if select == 'my-uploads':
+            return uploadMovie.objects.filter(user=self.request.user,convert_status__gte=1)
         if select == 'all':
             return uploadMovie.objects.filter(upload_visible_check=True, age_rating__lte=age_rating_user,convert_status=2)[:20]
 
