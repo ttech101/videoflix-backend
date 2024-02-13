@@ -1,12 +1,11 @@
 from django.conf import settings
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.auth.tokens import default_token_generator
-from django.utils.encoding import force_bytes, force_str
+from django.utils.encoding import force_bytes
 from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 from django.contrib.sites.shortcuts import get_current_site
 from rest_framework.authtoken.models import Token
-from django.contrib.auth.models import User
 from rest_framework import status
 import os
 

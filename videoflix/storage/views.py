@@ -1,14 +1,12 @@
 import uuid
 from django.forms import ValidationError
 from django.http import HttpResponseBadRequest, JsonResponse
-from django.shortcuts import redirect
 from storage.models import uploadMovie
 from storage.serializers import MovieSerializer,PreviewSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.response import Response
 from rest_framework import viewsets ,status
-from django.views.decorators.csrf import csrf_exempt
 from rest_framework.views import APIView
 from rest_framework.decorators import permission_classes
 from django.utils.translation import gettext_lazy as _
@@ -27,20 +25,6 @@ class MovieView(viewsets.ModelViewSet):
     def get_queryset(self):
         select = self.request.query_params.get('select', None)
         return uploadMovie.objects.filter(random_key=select)
-
-
-# @permission_classes([IsAuthenticated])
-# def ShowMedia(request):
-#     """
-#     View function to show media.
-#     This function checks permissions and redirects if necessary.
-#     """
-#     if not request.user.has_perm(''):
-#         return redirect('https://videoflix.tech-mail.eu')
-#     else:
-#         pass
-
-
 
 @permission_classes([IsAuthenticated])
 class CheckWatchlist(viewsets.ModelViewSet):
@@ -79,39 +63,35 @@ class PreviewSerializer(viewsets.ModelViewSet):
     serializer_class = PreviewSerializer
     permission_classes = [IsAuthenticated]
     authentication_classes = [TokenAuthentication]
+
     def get_queryset(self):
-        """
-        Get queryset based on query parameters.
-        Parameters:
-        - self: Instance of the ViewSet.
-        Returns:
-        - Queryset: Queryset of movies based on the query parameters.
-        """
         user = self.request.user
         age_rating_user = user.userprofile.age_rating
         select = self.request.query_params.get('select', None)
+
+        filter_params = {
+            'upload_visible_check': True,
+            'age_rating__lte': age_rating_user,
+            'convert_status': 2
+        }
         if select == 'newHeader':
-            return uploadMovie.objects.filter( upload_visible_check=True, age_rating__lte=age_rating_user,convert_status=2).order_by('-created_at')[:3]
-        if select == 'new':
-            return uploadMovie.objects.filter( upload_visible_check=True, age_rating__lte=age_rating_user,convert_status=2).order_by('-created_at')[:20]
-        if select == 'other':
-            return uploadMovie.objects.filter(other_check=True, upload_visible_check=True, age_rating__lte=age_rating_user,convert_status=2)[:20]
-        if select == 'nature':
-            return uploadMovie.objects.filter(nature_check=True, upload_visible_check=True, age_rating__lte=age_rating_user,convert_status=2)[:20]
-        if select == 'funny':
-            return uploadMovie.objects.filter(funny_check=True, upload_visible_check=True, age_rating__lte=age_rating_user,convert_status=2)[:20]
-        if select == 'knowledge':
-            return uploadMovie.objects.filter(knowledge_check=True, upload_visible_check=True, age_rating__lte=age_rating_user,convert_status=2)[:20]
-        if select == 'movie':
-            return uploadMovie.objects.filter(movie_check=True, upload_visible_check=True, age_rating__lte=age_rating_user,convert_status=2)[:20]
-        if select == 'serie':
-            return uploadMovie.objects.filter(short_movie_check=True, upload_visible_check=True, age_rating__lte=age_rating_user,convert_status=2)[:20]
-        if select == 'my':
-            return uploadMovie.objects.filter(user=self.request.user,convert_status__gte=1)[:50]
-        if select == 'my-uploads':
-            return uploadMovie.objects.filter(user=self.request.user,convert_status__gte=1)
-        if select == 'all':
-            return uploadMovie.objects.filter(upload_visible_check=True, age_rating__lte=age_rating_user,convert_status=2)[:20]
+            return uploadMovie.objects.filter(**filter_params).order_by('-created_at')[:3]
+        elif select == 'new':
+            return uploadMovie.objects.filter(**filter_params).order_by('-created_at')[:20]
+        elif select in ['other', 'nature', 'funny', 'knowledge', 'movie']:
+            filter_params[f'{select}_check'] = True
+            return uploadMovie.objects.filter(**filter_params)[:20]
+        elif select == 'serie':
+            filter_params['short_movie_check'] = True
+            return uploadMovie.objects.filter(**filter_params)[:20]
+        elif select == 'my':
+            return uploadMovie.objects.filter(user=self.request.user, convert_status__gte=1)[:50]
+        elif select == 'my-uploads':
+            return uploadMovie.objects.filter(user=self.request.user, convert_status__gte=1)
+        elif select == 'all':
+            return uploadMovie.objects.filter(**filter_params)[:20]
+        else:
+            return []
 
 
 class CreateMovie(APIView):

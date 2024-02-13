@@ -1,12 +1,11 @@
-import os
 from django.conf import settings
-from django.http import FileResponse, HttpResponse, HttpResponseBadRequest, HttpResponseForbidden, HttpResponseNotFound, HttpResponseRedirect, JsonResponse
+from django.http import  HttpResponse, HttpResponseBadRequest, JsonResponse
 from rest_framework.views import APIView
 from rest_framework import viewsets ,status
-from rest_framework.parsers import FileUploadParser, MultiPartParser
+from rest_framework.parsers import MultiPartParser
 from storage.models import uploadMovie
 from storage.serializers import PreviewSerializer
-from .models import UserProfile,UserModel
+from .models import UserProfile
 from .serializers import UserProfileSerializer
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authentication import TokenAuthentication
@@ -19,15 +18,13 @@ from django.utils.encoding import  force_str
 from django.contrib.auth.models import User
 from .functions import check_token_in_database, createMailActivateAccount, createMailDeleteAccount, createMailNewAccount, handle_uploaded_avatar
 from django.utils.http import urlsafe_base64_decode
-from django.shortcuts import redirect, render
+from django.shortcuts import  render,render, get_object_or_404
 from rest_framework.decorators import api_view, permission_classes,authentication_classes
 from rest_framework.permissions import IsAuthenticated,AllowAny
 from django.utils.crypto import get_random_string
 from .models import  PasswordResetToken
 from django.template.loader import render_to_string
 from django.core.mail import send_mail
-from django.contrib.sites.shortcuts import get_current_site
-from django.shortcuts import render, get_object_or_404
 from django.contrib.auth import get_user_model
 
 

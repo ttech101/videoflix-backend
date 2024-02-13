@@ -1,8 +1,6 @@
 import os
 import subprocess
-import django_rq
 from django.utils import timezone
-from storage.models import uploadMovie
 from account.functions import createMailNewVideo, createMailNewVideoConvert
 
 def convert_480p(instance):

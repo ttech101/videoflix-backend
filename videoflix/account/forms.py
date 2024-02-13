@@ -6,8 +6,6 @@ class CustomUserCreationForm(UserCreationForm):
     """
     Custom form for user creation.
     This form extends the built-in UserCreationForm to include an email field.
-    Attributes:
-        email (forms.EmailField): The field for the user's email address.
     Meta Attributes:
         model (User): The model associated with this form.
         fields (tuple): The fields to include in the form.
